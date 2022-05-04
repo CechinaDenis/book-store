@@ -1,23 +1,30 @@
 package com.code4fun.book.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 @Entity
-
+@NoArgsConstructor
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//    private List<Author> authors;
-//    private List<Category> categories;
+
+    @ManyToMany
+    @JoinTable(
+            name = "authors_books",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
+    private Set<Author> authors = new HashSet<>();
+    //    private List<Category> categories;
     private String reading;
     private Integer year;
     private Integer duration;

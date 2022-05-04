@@ -41,4 +41,8 @@ public class BookService {
         _book.setYear(book.getYear());
         return this.save(_book);
     }
+
+    public void delete(Long id) {
+        bookRepository.deleteById(id);
+    }
 }
