@@ -4,11 +4,9 @@ import com.code4fun.book.model.Book;
 import com.code4fun.book.services.BookService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -39,5 +37,11 @@ public class BookController {
     public ResponseEntity<Book> edit(@PathVariable Long id, @RequestBody Book editedBook) {
         Book book = bookService.update(editedBook, id);
         return new ResponseEntity<>(book, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        bookService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
