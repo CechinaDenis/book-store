@@ -18,6 +18,7 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
     private String reading;
     private Integer year;
     private Integer duration;
@@ -30,14 +31,20 @@ public class Book {
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
-    private final Set<Author> authors = new HashSet<>();
+    @ToString.Exclude
+    private Set<Author> authors = new HashSet<>();
     //    private List<Category> categories;
 
-    public Book(String reading, Integer year, Integer duration, Integer quality, String series) {
+    public Book(String name, String reading, Integer year, Integer duration, Integer quality, String series) {
+        this.name = name;
         this.reading = reading;
         this.year = year;
         this.duration = duration;
         this.quality = quality;
         this.series = series;
+    }
+
+    public void setAuthors(Set<Author> authors) {
+        this.authors = authors;
     }
 }

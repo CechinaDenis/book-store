@@ -21,10 +21,10 @@ public class BookApplication {
     CommandLineRunner commandLineRunner(BookRepository repository) {
         return args -> {
             final List<Book> books = List.of(
-                    new Book("Римский Влад", 2018, 10, 56, "Дисгардиум"),
-                    new Book("Римский Влад", 2019, 10, 56, "Дисгардиум"),
-                    new Book("Римский Влад", 2020, 10, 56, "Дисгардиум"),
-                    new Book("Римский Влад", 2021, 10, 56, "Дисгардиум")
+                    new Book("Book 1", "Римский Влад", 2018, 10, 56, "Дисгардиум"),
+                    new Book("Book 2", "Римский Влад", 2019, 10, 56, "Дисгардиум"),
+                    new Book("Book 3", "Римский Влад", 2020, 10, 56, "Дисгардиум"),
+                    new Book("Book 4", "Римский Влад", 2021, 10, 56, "Дисгардиум")
             );
 
             repository.saveAll(books);
