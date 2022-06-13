@@ -1,17 +1,26 @@
 package com.code4fun.book.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.util.HashSet;
 import java.util.Set;
 
 @Getter
+@Setter
 @ToString
-@Entity
+@EqualsAndHashCode(exclude = {"id", "books"})
 @NoArgsConstructor
+@Entity
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +37,12 @@ public class Author {
     }
 
     public void addBook(Book book) {
-        books.add(book);
+        this.books.add(book);
+        book.getAuthors().add(this);
     }
 
     public void removeBook(Book book) {
-        books.remove(book);
+        this.books.remove(book);
+        book.getAuthors().remove(this);
     }
-
 }
