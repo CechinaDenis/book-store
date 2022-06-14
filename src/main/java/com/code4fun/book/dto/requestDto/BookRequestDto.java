@@ -1,14 +1,16 @@
 package com.code4fun.book.dto.requestDto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
-import java.util.List;
-
-@Setter
-@Getter
+@Data
+@Builder
 public class BookRequestDto {
+    private Long id;
+    private Integer year;
+    private Integer duration;
+    private Integer quality;
     private String name;
-    private List<Long> authorsIds;
-
+    private String reading;
+    private String series;
 }
