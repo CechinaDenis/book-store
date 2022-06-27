@@ -61,7 +61,7 @@ class AuthorControllerTest {
         final var responseDto = AuthorResponseDto.builder().id(1L).firstName("James").lastName("Bond").build();
         when(authorService.update(requestDto)).thenReturn(responseDto);
 
-        assertEquals(new ResponseEntity<>(responseDto, HttpStatus.OK), authorController.edit(requestDto));
+        assertEquals(responseDto, authorController.edit(requestDto));
     }
 
     @Test
