@@ -40,13 +40,12 @@ public class CategoryController {
     }
 
     @PutMapping
-    public ResponseEntity<CategoryResponseDto> edit(@RequestBody CategoryRequestDto requestDto) {
-        final var _responseDto = categoryService.update(requestDto);
-        return new ResponseEntity<>(_responseDto, HttpStatus.OK);
+    public CategoryResponseDto edit(@RequestBody CategoryRequestDto requestDto) {
+        return categoryService.update(requestDto);
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         categoryService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

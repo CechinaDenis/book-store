@@ -35,18 +35,17 @@ public class AuthorController {
 
     @PostMapping
     public ResponseEntity<AuthorResponseDto> add(@RequestBody AuthorRequestDto requestDto) {
-        final var responseDto = authorService.save(requestDto);
-        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+        final var _responseDto = authorService.save(requestDto);
+        return new ResponseEntity<>(_responseDto, HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<AuthorResponseDto> edit(@RequestBody AuthorRequestDto requestDto) {
-        final var responseDto = authorService.update(requestDto);
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    public AuthorResponseDto edit(@RequestBody AuthorRequestDto requestDto) {
+        return authorService.update(requestDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         authorService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

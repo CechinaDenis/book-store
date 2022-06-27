@@ -40,21 +40,19 @@ public class BookController {
     }
 
     @PostMapping(path = "/{bookId}/authors/{authorId}")
-    public ResponseEntity<BookResponseDto> addAuthorToBook(
+    public BookResponseDto addAuthorToBook(
             @PathVariable Long bookId,
             @PathVariable Long authorId
     ) {
-        final var responseDto = bookService.addAuthor(bookId, authorId);
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return bookService.addAuthor(bookId, authorId);
     }
 
     @PostMapping(path = "/{bookId}/categories/{categoryId}")
-    public ResponseEntity<BookResponseDto> addCategoryToBook(
+    public BookResponseDto addCategoryToBook(
             @PathVariable Long bookId,
             @PathVariable Long categoryId
     ) {
-        final var responseDto = bookService.addCategory(bookId, categoryId);
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return bookService.addCategory(bookId, categoryId);
     }
 
     @PutMapping
@@ -63,23 +61,26 @@ public class BookController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         bookService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{bookId}/authors/{authorId}")
-    public void removeAuthorFromBook(
+    public ResponseEntity<Void> removeAuthorFromBook(
             @PathVariable Long bookId,
             @PathVariable Long authorId
     ) {
         bookService.removeAuthor(bookId, authorId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{bookId}/categories/{categoryId}")
-    public void removeCategoryFromBook(
+    public ResponseEntity<Void> removeCategoryFromBook(
             @PathVariable Long bookId,
             @PathVariable Long categoryId
     ) {
         bookService.removeCategory(bookId, categoryId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
