@@ -3,7 +3,7 @@ package com.code4fun.book.controller;
 import com.code4fun.book.dto.requestDto.AuthorRequestDto;
 import com.code4fun.book.dto.responseDto.AuthorResponseDto;
 import com.code4fun.book.service.AuthorService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "api/authors", produces = "application/json; charset=utf-8")
 public class AuthorController {

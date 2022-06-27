@@ -3,7 +3,7 @@ package com.code4fun.book.controller;
 import com.code4fun.book.dto.requestDto.CategoryRequestDto;
 import com.code4fun.book.dto.responseDto.CategoryResponseDto;
 import com.code4fun.book.service.CategoryService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "api/categories", produces = "application/json; charset=utf-8")
 public class CategoryController {

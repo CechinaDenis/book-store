@@ -1,11 +1,11 @@
 package com.code4fun.book.exception;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Getter;
 
 import java.util.Date;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 public class ErrorDetails {
     private final Date timestamp;

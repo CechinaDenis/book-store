@@ -7,14 +7,14 @@ import com.code4fun.book.exception.ErrorDetails;
 import com.code4fun.book.exception.ResourceNotFoundException;
 import com.code4fun.book.model.Category;
 import com.code4fun.book.repository.CategoryRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class CategoryService implements MyService<CategoryRequestDto, CategoryResponseDto, Long> {
     private final CategoryRepository categoryRepository;
