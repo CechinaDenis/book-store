@@ -27,41 +27,41 @@ class AuthorControllerTest {
 
     @Test
     void findByIdTest() {
-        final var id = 1L;
-        final var authorResponseDto = AuthorResponseDto.builder().id(id).firstName("Foo").lastName("Boo").build();
-        when(authorService.findById(id)).thenReturn(authorResponseDto);
+        final var _id = 1L;
+        final var _authorResponseDto = AuthorResponseDto.builder().id(_id).firstName("Foo").lastName("Boo").build();
+        when(authorService.findById(_id)).thenReturn(_authorResponseDto);
 
-        assertEquals(authorResponseDto, authorController.findById(id));
+        assertEquals(_authorResponseDto, authorController.findById(_id));
     }
 
     @Test
     void findAllTest() {
-        final var authorResponseDtos = List.of(
+        final var _authorResponseDtos = List.of(
                 AuthorResponseDto.builder().id(1L).firstName("Foo").lastName("Boo").build(),
                 AuthorResponseDto.builder().id(2L).firstName("Steven").lastName("Born").build(),
                 AuthorResponseDto.builder().id(3L).firstName("Fillip").lastName("Rain").build()
         );
-        when(authorService.findAll()).thenReturn(authorResponseDtos);
+        when(authorService.findAll()).thenReturn(_authorResponseDtos);
 
-        assertEquals(authorResponseDtos, authorController.findAll());
+        assertEquals(_authorResponseDtos, authorController.findAll());
     }
 
     @Test
     void addTest() {
-        final var requestDto = AuthorRequestDto.builder().firstName("James").lastName("Bond").build();
-        final var responseDto = AuthorResponseDto.builder().id(1L).firstName("James").lastName("Bond").build();
-        when(authorService.save(requestDto)).thenReturn(responseDto);
+        final var _requestDto = AuthorRequestDto.builder().firstName("James").lastName("Bond").build();
+        final var _responseDto = AuthorResponseDto.builder().id(1L).firstName("James").lastName("Bond").build();
+        when(authorService.save(_requestDto)).thenReturn(_responseDto);
 
-        assertEquals(new ResponseEntity<>(responseDto, HttpStatus.CREATED), authorController.add(requestDto));
+        assertEquals(new ResponseEntity<>(_responseDto, HttpStatus.CREATED), authorController.add(_requestDto));
     }
 
     @Test
     void editTest() {
-        final var requestDto = AuthorRequestDto.builder().id(1L).firstName("James").lastName("Bond").build();
-        final var responseDto = AuthorResponseDto.builder().id(1L).firstName("James").lastName("Bond").build();
-        when(authorService.update(requestDto)).thenReturn(responseDto);
+        final var _requestDto = AuthorRequestDto.builder().id(1L).firstName("James").lastName("Bond").build();
+        final var _responseDto = AuthorResponseDto.builder().id(1L).firstName("James").lastName("Bond").build();
+        when(authorService.update(_requestDto)).thenReturn(_responseDto);
 
-        assertEquals(responseDto, authorController.edit(requestDto));
+        assertEquals(_responseDto, authorController.edit(_requestDto));
     }
 
     @Test

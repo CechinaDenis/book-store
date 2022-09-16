@@ -11,13 +11,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class CategoryService implements MyService<CategoryRequestDto, CategoryResponseDto, Long> {
     private final CategoryRepository categoryRepository;
+    private final Clock clock;
 
     @Override
     public CategoryResponseDto findById(Long id) {
@@ -52,7 +54,7 @@ public class CategoryService implements MyService<CategoryRequestDto, CategoryRe
 
     Category getById(Long id) {
         return categoryRepository.findById(id).orElseThrow(() -> {
-            final ErrorDetails details = new ErrorDetails(new Date(), "Category Id", "Id", id);
+            final var details = new ErrorDetails(LocalDateTime.now(clock), "Category Id", "Id", id);
             return new ResourceNotFoundException(details);
         });
     }

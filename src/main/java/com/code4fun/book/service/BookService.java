@@ -11,7 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -21,14 +22,7 @@ public class BookService implements MyService<BookRequestDto, BookResponseDto, L
     private final BookRepository bookRepository;
     private final AuthorService authorService;
     private final CategoryService categoryService;
-
-    private Book getById(Long id) {
-        return bookRepository.findById(id)
-                .orElseThrow(() -> {
-                    final ErrorDetails details = new ErrorDetails(new Date(), "Book Id", "Id", id);
-                    return new ResourceNotFoundException(details);
-                });
-    }
+    private final Clock clock;
 
     @Override
     public BookResponseDto findById(Long id) {
@@ -94,5 +88,13 @@ public class BookService implements MyService<BookRequestDto, BookResponseDto, L
         final var _book = this.getById(bookId);
         final var _category = categoryService.getById(categoryId);
         _book.removeCategory(_category);
+    }
+
+    Book getById(Long id) {
+        return bookRepository.findById(id)
+                .orElseThrow(() -> {
+                    final ErrorDetails details = new ErrorDetails(LocalDateTime.now(clock), "Book Id", "Id", id);
+                    return new ResourceNotFoundException(details);
+                });
     }
 }

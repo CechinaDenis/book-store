@@ -27,42 +27,42 @@ class CategoryControllerTest {
 
     @Test
     void findById() {
-        final var id = 1L;
-        final var responseDto = CategoryResponseDto.builder().id(id).name("Fantasy").build();
-        when(categoryService.findById(id)).thenReturn(responseDto);
+        final var _id = 1L;
+        final var _responseDto = CategoryResponseDto.builder().id(_id).name("Fantasy").build();
+        when(categoryService.findById(_id)).thenReturn(_responseDto);
 
-        assertEquals(responseDto, categoryController.findById(id));
+        assertEquals(_responseDto, categoryController.findById(_id));
     }
 
     @Test
     void findAll() {
-        final var responseDtos = List.of(
+        final var _responseDtos = List.of(
                 CategoryResponseDto.builder().id(1L).name("Fantasy").build(),
                 CategoryResponseDto.builder().id(2L).name("Thriller").build(),
                 CategoryResponseDto.builder().id(3L).name("Comedy").build(),
                 CategoryResponseDto.builder().id(4L).name("LitRPG").build()
         );
-        when(categoryService.findAll()).thenReturn(responseDtos);
+        when(categoryService.findAll()).thenReturn(_responseDtos);
 
-        assertEquals(responseDtos, categoryController.findAll());
+        assertEquals(_responseDtos, categoryController.findAll());
     }
 
     @Test
     void add() {
-        final var requestDto = CategoryRequestDto.builder().name("Fantasy").build();
-        final var responseDto = CategoryResponseDto.builder().id(1L).name("Fantasy").build();
-        when(categoryService.save(requestDto)).thenReturn(responseDto);
+        final var _requestDto = CategoryRequestDto.builder().name("Fantasy").build();
+        final var _responseDto = CategoryResponseDto.builder().id(1L).name("Fantasy").build();
+        when(categoryService.save(_requestDto)).thenReturn(_responseDto);
 
-        assertEquals(new ResponseEntity<>(responseDto, HttpStatus.CREATED), categoryController.add(requestDto));
+        assertEquals(new ResponseEntity<>(_responseDto, HttpStatus.CREATED), categoryController.add(_requestDto));
     }
 
     @Test
     void edit() {
-        final var requestDto = CategoryRequestDto.builder().id(1L).name("Fantasy").build();
-        final var responseDto = CategoryResponseDto.builder().id(1L).name("Fantasy").build();
-        when(categoryService.update(isA(CategoryRequestDto.class))).thenReturn(responseDto);
+        final var _requestDto = CategoryRequestDto.builder().id(1L).name("Fantasy").build();
+        final var _responseDto = CategoryResponseDto.builder().id(1L).name("Fantasy").build();
+        when(categoryService.update(isA(CategoryRequestDto.class))).thenReturn(_responseDto);
 
-        assertEquals(responseDto, categoryController.edit(requestDto));
+        assertEquals(_responseDto, categoryController.edit(_requestDto));
     }
 
     @Test

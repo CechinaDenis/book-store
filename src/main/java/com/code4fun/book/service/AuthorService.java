@@ -11,13 +11,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class AuthorService implements MyService<AuthorRequestDto, AuthorResponseDto, Long> {
     private final AuthorRepository authorRepository;
+    private final Clock clock;
 
     @Override
     public AuthorResponseDto findById(Long id) {
@@ -31,8 +33,8 @@ public class AuthorService implements MyService<AuthorRequestDto, AuthorResponse
 
     @Override
     public AuthorResponseDto save(AuthorRequestDto requestDto) {
-        final var author = mapper.authorRequestDtoToAuthor(requestDto);
-        return mapper.authorToAuthorResponseDto(authorRepository.save(author));
+        final var _author = mapper.authorRequestDtoToAuthor(requestDto);
+        return mapper.authorToAuthorResponseDto(authorRepository.save(_author));
     }
 
     @Transactional
@@ -53,7 +55,7 @@ public class AuthorService implements MyService<AuthorRequestDto, AuthorResponse
     Author getById(Long id) {
         return authorRepository.findById(id)
                 .orElseThrow(() -> {
-                    final ErrorDetails details = new ErrorDetails(new Date(), "Author Id", "Id", id);
+                    final var details = new ErrorDetails(LocalDateTime.now(clock), "Author Id", "Id", id);
                     return new ResourceNotFoundException(details);
                 });
     }

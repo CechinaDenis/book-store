@@ -28,7 +28,7 @@ class BookControllerTest {
 
     @Test
     void findById() {
-        final var responseDto = BookResponseDto
+        final var _responseDto = BookResponseDto
                 .builder()
                 .id(1L)
                 .name("Eye of the World")
@@ -38,14 +38,14 @@ class BookControllerTest {
                 .duration(45)
                 .quality(56)
                 .build();
-        when(bookService.findById(1L)).thenReturn(responseDto);
+        when(bookService.findById(1L)).thenReturn(_responseDto);
 
-        assertEquals(responseDto, bookController.findById(1L));
+        assertEquals(_responseDto, bookController.findById(1L));
     }
 
     @Test
     void findAll() {
-        final var responseDtos = List.of(
+        final var _responseDtos = List.of(
                 BookResponseDto
                         .builder()
                         .id(1L)
@@ -87,14 +87,14 @@ class BookControllerTest {
                         .quality(56)
                         .build()
         );
-        when(bookService.findAll()).thenReturn(responseDtos);
+        when(bookService.findAll()).thenReturn(_responseDtos);
 
-        assertEquals(responseDtos, bookController.findAll());
+        assertEquals(_responseDtos, bookController.findAll());
     }
 
     @Test
     void add() {
-        final var requestDto = BookRequestDto
+        final var _requestDto = BookRequestDto
                 .builder()
                 .name("Eye of the World")
                 .reading("Stevin Rodrigo")
@@ -103,7 +103,7 @@ class BookControllerTest {
                 .duration(45)
                 .quality(56)
                 .build();
-        final var responseDto = BookResponseDto
+        final var _responseDto = BookResponseDto
                 .builder()
                 .id(1L)
                 .name("Eye of the World")
@@ -113,14 +113,14 @@ class BookControllerTest {
                 .duration(45)
                 .quality(56)
                 .build();
-        when(bookService.save(requestDto)).thenReturn(responseDto);
+        when(bookService.save(_requestDto)).thenReturn(_responseDto);
 
-        assertEquals(new ResponseEntity<>(responseDto, HttpStatus.CREATED), bookController.add(requestDto));
+        assertEquals(new ResponseEntity<>(_responseDto, HttpStatus.CREATED), bookController.add(_requestDto));
     }
 
     @Test
     void addAuthorToBook() {
-        final var responseDto = BookResponseDto
+        final var _responseDto = BookResponseDto
                 .builder()
                 .id(1L)
                 .name("Eye of the World")
@@ -131,14 +131,14 @@ class BookControllerTest {
                 .quality(56)
                 .authorIds(Set.of(1L, 2L))
                 .build();
-        when(bookService.addAuthor(1L, 2L)).thenReturn(responseDto);
+        when(bookService.addAuthor(1L, 2L)).thenReturn(_responseDto);
 
-        assertEquals(responseDto, bookController.addAuthorToBook(1L, 2L));
+        assertEquals(_responseDto, bookController.addAuthorToBook(1L, 2L));
     }
 
     @Test
     void addCategoryToBook() {
-        final var responseDto = BookResponseDto
+        final var _responseDto = BookResponseDto
                 .builder()
                 .id(1L)
                 .name("Eye of the World")
@@ -149,14 +149,14 @@ class BookControllerTest {
                 .quality(56)
                 .categoryIds(Set.of(1L, 2L))
                 .build();
-        when(bookService.addCategory(1L, 2L)).thenReturn(responseDto);
+        when(bookService.addCategory(1L, 2L)).thenReturn(_responseDto);
 
-        assertEquals(responseDto, bookController.addCategoryToBook(1L, 2L));
+        assertEquals(_responseDto, bookController.addCategoryToBook(1L, 2L));
     }
 
     @Test
     void edit() {
-        final var requestDto = BookRequestDto.builder()
+        final var _requestDto = BookRequestDto.builder()
                 .id(1L)
                 .name("Eye of the World")
                 .reading("Stevin Rodrigo")
@@ -165,7 +165,7 @@ class BookControllerTest {
                 .duration(45)
                 .quality(56)
                 .build();
-        final var responseDto = BookResponseDto
+        final var _responseDto = BookResponseDto
                 .builder()
                 .id(1L)
                 .name("Eye of the World")
@@ -175,9 +175,9 @@ class BookControllerTest {
                 .duration(45)
                 .quality(56)
                 .build();
-        when(bookService.update(requestDto)).thenReturn(responseDto);
+        when(bookService.update(_requestDto)).thenReturn(_responseDto);
 
-        assertEquals(responseDto, bookController.edit(requestDto));
+        assertEquals(_responseDto, bookController.edit(_requestDto));
     }
 
     @Test
