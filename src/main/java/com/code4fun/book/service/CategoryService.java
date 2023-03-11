@@ -8,6 +8,7 @@ import com.code4fun.book.exception.ResourceNotFoundException;
 import com.code4fun.book.model.Category;
 import com.code4fun.book.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class CategoryService implements MyService<CategoryRequestDto, CategoryResponseDto, Long> {
@@ -23,17 +25,20 @@ public class CategoryService implements MyService<CategoryRequestDto, CategoryRe
 
     @Override
     public CategoryResponseDto findById(Long id) {
+        log.info("Getting Category by ID: {}", id);
         final var _category = this.getById(id);
         return mapper.categoryToCategoryResponseDto(_category);
     }
 
     @Override
     public List<CategoryResponseDto> findAll() {
+        log.info("Getting all Categories");
         return mapper.categoriesToCategoryResponseDtos(categoryRepository.findAll());
     }
 
     @Override
     public CategoryResponseDto save(CategoryRequestDto requestDto) {
+        log.info("Saving a new Category");
         final var _category = mapper.categoryRequestDtoToCategory(requestDto);
         return mapper.categoryToCategoryResponseDto(categoryRepository.save(_category));
     }
@@ -41,13 +46,16 @@ public class CategoryService implements MyService<CategoryRequestDto, CategoryRe
     @Transactional
     @Override
     public CategoryResponseDto update(CategoryRequestDto requestDto) {
-        final var _category = this.getById(requestDto.getId());
+        final var id = requestDto.getId();
+        log.info("Updating Category with ID: {}", id);
+        final var _category = this.getById(id);
         _category.setName(requestDto.getName());
         return mapper.categoryToCategoryResponseDto(_category);
     }
 
     @Override
     public void delete(Long id) {
+        log.info("Deleting Category by ID: {}", id);
         final var _category = getById(id);
         categoryRepository.delete(_category);
     }

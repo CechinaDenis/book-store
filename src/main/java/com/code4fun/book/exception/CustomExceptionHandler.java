@@ -10,6 +10,4 @@ public class CustomExceptionHandler {
     public String resourceNotFoundException(ResourceNotFoundException ex) {
         return ex.getMessage();
     }
-
-
 }

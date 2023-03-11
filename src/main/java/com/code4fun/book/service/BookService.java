@@ -8,6 +8,7 @@ import com.code4fun.book.exception.ResourceNotFoundException;
 import com.code4fun.book.model.Book;
 import com.code4fun.book.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BookService implements MyService<BookRequestDto, BookResponseDto, Long> {
@@ -26,17 +28,20 @@ public class BookService implements MyService<BookRequestDto, BookResponseDto, L
 
     @Override
     public BookResponseDto findById(Long id) {
+        log.info("Getting Book by ID: {}", id);
         final var _book = this.getById(id);
         return mapper.bookToBookResponseDto(_book);
     }
 
     @Override
     public List<BookResponseDto> findAll() {
+        log.info("Getting all Books");
         return mapper.booksToBookResponseDtos(bookRepository.findAll());
     }
 
     @Override
     public BookResponseDto save(BookRequestDto requestDto) {
+        log.info("Saving a new Book: {}", requestDto);
         final var _book = mapper.bookRequestDtoToBook(requestDto);
         return mapper.bookToBookResponseDto(bookRepository.save(_book));
     }
@@ -44,7 +49,9 @@ public class BookService implements MyService<BookRequestDto, BookResponseDto, L
     @Transactional
     @Override
     public BookResponseDto update(BookRequestDto requestDto) {
-        final var _book = this.getById(requestDto.getId());
+        final var id = requestDto.getId();
+        log.info("Updating Book with ID: {}", id);
+        final var _book = this.getById(id);
         _book.setName(requestDto.getName());
         _book.setReading(requestDto.getReading());
         _book.setSeries(requestDto.getSeries());
@@ -56,12 +63,14 @@ public class BookService implements MyService<BookRequestDto, BookResponseDto, L
 
     @Override
     public void delete(Long id) {
+        log.info("Deleting Book with ID: {}", id);
         final var _book = this.getById(id);
         bookRepository.delete(_book);
     }
 
     @Transactional
     public BookResponseDto addAuthor(Long bookId, Long authorId) {
+        log.info("Adding Author with ID: {} to the Book with ID: {}", authorId, bookId);
         final var _book = this.getById(bookId);
         final var _author = authorService.getById(authorId);
         _book.addAuthor(_author);
@@ -70,6 +79,7 @@ public class BookService implements MyService<BookRequestDto, BookResponseDto, L
 
     @Transactional
     public void removeAuthor(Long bookId, Long authorId) {
+        log.info("Removing Author with ID: {} from the Book with ID: {}", authorId, bookId);
         final var _book = this.getById(bookId);
         final var _author = authorService.getById(authorId);
         _book.removeAuthor(_author);
@@ -77,6 +87,7 @@ public class BookService implements MyService<BookRequestDto, BookResponseDto, L
 
     @Transactional
     public BookResponseDto addCategory(Long bookId, Long categoryId) {
+        log.info("Adding Category with ID: {} to the Book with ID: {}", categoryId, bookId);
         final var _book = this.getById(bookId);
         final var _category = categoryService.getById(categoryId);
         _book.addCategory(_category);
@@ -85,6 +96,7 @@ public class BookService implements MyService<BookRequestDto, BookResponseDto, L
 
     @Transactional
     public void removeCategory(Long bookId, Long categoryId) {
+        log.info("Removing Category with ID: {} from the Book with ID: {}", categoryId, bookId);
         final var _book = this.getById(bookId);
         final var _category = categoryService.getById(categoryId);
         _book.removeCategory(_category);
