@@ -2,6 +2,7 @@ package com.code4fun.book.service;
 
 import com.code4fun.book.dto.mapper;
 import com.code4fun.book.dto.requestDto.AuthorRequestDto;
+import com.code4fun.book.dto.responseDto.AuthorResponseDto;
 import com.code4fun.book.exception.ErrorDetails;
 import com.code4fun.book.exception.ResourceNotFoundException;
 import com.code4fun.book.model.Author;
@@ -18,32 +19,16 @@ import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static java.lang.Math.toIntExact;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.anyLong;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AuthorServiceTest {
-    private static final ZonedDateTime NOW = ZonedDateTime.of(
-            2022,
-            7,
-            22,
-            10,
-            10,
-            10,
-            0,
-            ZoneId.systemDefault()
-    );
+    private static final ZonedDateTime NOW = ZonedDateTime.of(2022, 7, 22, 10, 10, 10, 0, ZoneId.systemDefault());
     private List<Author> authors;
     @Mock
     private AuthorRepository repository;
@@ -67,7 +52,7 @@ class AuthorServiceTest {
     }
 
     @Test
-    void findById() {
+    void findByIdTest() {
         final long _id = 1L;
         final var _author = authors.get(toIntExact(_id));
         when(repository.findById(_id)).thenReturn(Optional.of(_author));
@@ -77,7 +62,7 @@ class AuthorServiceTest {
     }
 
     @Test
-    void findAll() {
+    void findAllTest() {
         final var _authorResponseDtos = mapper.authorsToAuthorResponseDtos(authors);
         when(repository.findAll()).thenReturn(authors);
 
@@ -85,7 +70,7 @@ class AuthorServiceTest {
     }
 
     @Test
-    void save() {
+    void saveTest() {
         final long _id = 1L;
         final var _author = authors.get(toIntExact(_id));
         when(repository.save(any(Author.class))).thenReturn(_author);
@@ -96,11 +81,21 @@ class AuthorServiceTest {
     }
 
     @Test
-    void update() {
+    void updateTest() {
+        final var _author = spy(Author.class);
+        _author.setId(1L);
+        _author.setFirstName("Steven");
+        _author.setLastName("Jobs");
+        doReturn(Optional.of(_author)).when(repository).findById(1L);
+
+        final var _requestDto = AuthorRequestDto.builder().id(1L).firstName("Steven").lastName("Born").build();
+        final var _responseDto = AuthorResponseDto.builder().id(1L).firstName("Steven").lastName("Born").bookIds(Collections.emptySet()).build();
+
+        assertEquals(service.update(_requestDto), _responseDto);
     }
 
     @Test
-    void delete() {
+    void deleteTest() {
         final long _id = 1L;
         final var _author = authors.get(toIntExact(_id));
         when(repository.findById(_id)).thenReturn(Optional.of(_author));
@@ -112,7 +107,7 @@ class AuthorServiceTest {
     }
 
     @Test
-    void getById() {
+    void getByIdTest() {
         final long _validId = 1L;
         final var _author = authors.get(toIntExact(_validId));
         when(repository.findById(_validId)).thenReturn(Optional.of(_author));
