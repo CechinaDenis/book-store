@@ -1,6 +1,9 @@
 package com.code4fun.book.service;
 
 import com.code4fun.book.dto.AuthorMapper;
+import com.code4fun.book.dto.AuthorMapperImpl;
+import com.code4fun.book.dto.EntityToEntityIdsMapper;
+import com.code4fun.book.dto.EntityToEntityIdsMapperImpl;
 import com.code4fun.book.dto.requestDto.AuthorRequestDto;
 import com.code4fun.book.dto.responseDto.AuthorResponseDto;
 import com.code4fun.book.exception.ErrorDetails;
@@ -12,11 +15,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -33,18 +36,26 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class AuthorServiceTest {
   private static final ZonedDateTime NOW = ZonedDateTime.of(2022, 7, 22, 10, 10, 10, 0, ZoneId.systemDefault());
-  private List<Author> authors;
+  private static final AuthorMapper authorMapper = new AuthorMapperImpl();
+  private static final EntityToEntityIdsMapper entityToEntityIdsMapper = new EntityToEntityIdsMapperImpl();
+
   @Mock
   private AuthorRepository repository;
   @Mock
   private Clock clock;
-  @Spy
-  private AuthorMapper mapper = Mappers.getMapper(AuthorMapper.class);
   @InjectMocks
   private AuthorService service;
 
+  @Spy
+  private AuthorMapper mapper = new AuthorMapperImpl();
+  @Spy
+  private EntityToEntityIdsMapper entity = new EntityToEntityIdsMapperImpl();
+  private List<Author> authors;
+
   @BeforeEach
   void init() {
+    ReflectionTestUtils.setField(authorMapper, "entityToEntityIdsMapper", entityToEntityIdsMapper);
+    ReflectionTestUtils.setField(mapper, "entityToEntityIdsMapper", entity);
     authors = new ArrayList<>(Arrays.asList(new Author("Foo", "Boo"), new Author("Steven", "Born"), new Author("Fillip", "Rain")));
     long i = 1L;
     for (Author author : authors) {
@@ -80,7 +91,7 @@ class AuthorServiceTest {
 
   @Test
   void findAllTest() {
-    final var _authorResponseDtos = mapper.map(authors);
+    final var _authorResponseDtos = authorMapper.map(authors);
     when(repository.findAll()).thenReturn(authors);
 
     assertEquals(_authorResponseDtos, service.findAll());
@@ -96,7 +107,7 @@ class AuthorServiceTest {
         .firstName("Steven")
         .lastName("Born")
         .build();
-    final var _responseDto = mapper.map(_author);
+    final var _responseDto = authorMapper.map(_author);
     assertEquals(_responseDto, service.save(_requestDto));
   }
 
