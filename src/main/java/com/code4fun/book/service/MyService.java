@@ -6,13 +6,13 @@ import java.util.List;
 
 @Service
 public interface MyService<RqT, RsT, ID> {
-    RsT findById(ID id);
+  RsT findById(ID id);
 
-    List<RsT> findAll();
+  List<RsT> findAll();
 
-    RsT save(RqT requestEntity);
+  RsT save(RqT requestEntity);
 
-    RsT update(RqT requestEntity);
+  RsT update(RqT requestEntity);
 
-    void delete(ID id);
+  void delete(ID id);
 }

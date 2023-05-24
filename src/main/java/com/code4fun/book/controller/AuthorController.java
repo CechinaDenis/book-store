@@ -21,32 +21,32 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "api/authors", produces = "application/json; charset=utf-8")
 public class AuthorController {
-    private final AuthorService authorService;
+  private final AuthorService authorService;
 
-    @GetMapping("/{id}")
-    public AuthorResponseDto findById(@PathVariable Long id) {
-        return authorService.findById(id);
-    }
+  @GetMapping("/{id}")
+  public AuthorResponseDto findById(@PathVariable Long id) {
+    return authorService.findById(id);
+  }
 
-    @GetMapping
-    public List<AuthorResponseDto> findAll() {
-        return authorService.findAll();
-    }
+  @GetMapping
+  public List<AuthorResponseDto> findAll() {
+    return authorService.findAll();
+  }
 
-    @PostMapping
-    public ResponseEntity<AuthorResponseDto> add(@RequestBody AuthorRequestDto requestDto) {
-        final var _responseDto = authorService.save(requestDto);
-        return new ResponseEntity<>(_responseDto, HttpStatus.CREATED);
-    }
+  @PostMapping
+  public ResponseEntity<AuthorResponseDto> add(@RequestBody AuthorRequestDto requestDto) {
+    final var _responseDto = authorService.save(requestDto);
+    return new ResponseEntity<>(_responseDto, HttpStatus.CREATED);
+  }
 
-    @PutMapping
-    public AuthorResponseDto edit(@RequestBody AuthorRequestDto requestDto) {
-        return authorService.update(requestDto);
-    }
+  @PutMapping
+  public AuthorResponseDto edit(@RequestBody AuthorRequestDto requestDto) {
+    return authorService.update(requestDto);
+  }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        authorService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
+    authorService.delete(id);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
 }

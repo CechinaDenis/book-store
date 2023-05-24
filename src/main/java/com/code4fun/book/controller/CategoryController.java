@@ -21,32 +21,32 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "api/categories", produces = "application/json; charset=utf-8")
 public class CategoryController {
-    private final CategoryService categoryService;
+  private final CategoryService categoryService;
 
-    @GetMapping(path = "/{id}")
-    public CategoryResponseDto findById(@PathVariable Long id) {
-        return categoryService.findById(id);
-    }
+  @GetMapping(path = "/{id}")
+  public CategoryResponseDto findById(@PathVariable Long id) {
+    return categoryService.findById(id);
+  }
 
-    @GetMapping
-    public List<CategoryResponseDto> findAll() {
-        return categoryService.findAll();
-    }
+  @GetMapping
+  public List<CategoryResponseDto> findAll() {
+    return categoryService.findAll();
+  }
 
-    @PostMapping
-    public ResponseEntity<CategoryResponseDto> add(@RequestBody CategoryRequestDto requestDto) {
-        final var _responseDto = categoryService.save(requestDto);
-        return new ResponseEntity<>(_responseDto, HttpStatus.CREATED);
-    }
+  @PostMapping
+  public ResponseEntity<CategoryResponseDto> add(@RequestBody CategoryRequestDto requestDto) {
+    final var _responseDto = categoryService.save(requestDto);
+    return new ResponseEntity<>(_responseDto, HttpStatus.CREATED);
+  }
 
-    @PutMapping
-    public CategoryResponseDto edit(@RequestBody CategoryRequestDto requestDto) {
-        return categoryService.update(requestDto);
-    }
+  @PutMapping
+  public CategoryResponseDto edit(@RequestBody CategoryRequestDto requestDto) {
+    return categoryService.update(requestDto);
+  }
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        categoryService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+  @DeleteMapping(path = "/{id}")
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
+    categoryService.delete(id);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
 }

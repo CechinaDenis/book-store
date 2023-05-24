@@ -21,66 +21,66 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/books", produces = "application/json; charset=utf-8")
 public class BookController {
-    private final BookService bookService;
+  private final BookService bookService;
 
-    @GetMapping(path = "/{id}")
-    public BookResponseDto findById(@PathVariable Long id) {
-        return bookService.findById(id);
-    }
+  @GetMapping(path = "/{id}")
+  public BookResponseDto findById(@PathVariable Long id) {
+    return bookService.findById(id);
+  }
 
-    @GetMapping
-    public List<BookResponseDto> findAll() {
-        return bookService.findAll();
-    }
+  @GetMapping
+  public List<BookResponseDto> findAll() {
+    return bookService.findAll();
+  }
 
-    @PostMapping
-    public ResponseEntity<BookResponseDto> add(@RequestBody BookRequestDto requestDto) {
-        final var _responseDto = bookService.save(requestDto);
-        return new ResponseEntity<>(_responseDto, HttpStatus.CREATED);
-    }
+  @PostMapping
+  public ResponseEntity<BookResponseDto> add(@RequestBody BookRequestDto requestDto) {
+    final var _responseDto = bookService.save(requestDto);
+    return new ResponseEntity<>(_responseDto, HttpStatus.CREATED);
+  }
 
-    @PostMapping(path = "/{bookId}/authors/{authorId}")
-    public BookResponseDto addAuthorToBook(
-            @PathVariable Long bookId,
-            @PathVariable Long authorId
-    ) {
-        return bookService.addAuthor(bookId, authorId);
-    }
+  @PostMapping(path = "/{bookId}/authors/{authorId}")
+  public BookResponseDto addAuthorToBook(
+      @PathVariable Long bookId,
+      @PathVariable Long authorId
+  ) {
+    return bookService.addAuthor(bookId, authorId);
+  }
 
-    @PostMapping(path = "/{bookId}/categories/{categoryId}")
-    public BookResponseDto addCategoryToBook(
-            @PathVariable Long bookId,
-            @PathVariable Long categoryId
-    ) {
-        return bookService.addCategory(bookId, categoryId);
-    }
+  @PostMapping(path = "/{bookId}/categories/{categoryId}")
+  public BookResponseDto addCategoryToBook(
+      @PathVariable Long bookId,
+      @PathVariable Long categoryId
+  ) {
+    return bookService.addCategory(bookId, categoryId);
+  }
 
-    @PutMapping
-    public BookResponseDto edit(@RequestBody BookRequestDto requestDto) {
-        return bookService.update(requestDto);
-    }
+  @PutMapping
+  public BookResponseDto edit(@RequestBody BookRequestDto requestDto) {
+    return bookService.update(requestDto);
+  }
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        bookService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+  @DeleteMapping(path = "/{id}")
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
+    bookService.delete(id);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
 
-    @DeleteMapping(path = "/{bookId}/authors/{authorId}")
-    public ResponseEntity<Void> removeAuthorFromBook(
-            @PathVariable Long bookId,
-            @PathVariable Long authorId
-    ) {
-        bookService.removeAuthor(bookId, authorId);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+  @DeleteMapping(path = "/{bookId}/authors/{authorId}")
+  public ResponseEntity<Void> removeAuthorFromBook(
+      @PathVariable Long bookId,
+      @PathVariable Long authorId
+  ) {
+    bookService.removeAuthor(bookId, authorId);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
 
-    @DeleteMapping(path = "/{bookId}/categories/{categoryId}")
-    public ResponseEntity<Void> removeCategoryFromBook(
-            @PathVariable Long bookId,
-            @PathVariable Long categoryId
-    ) {
-        bookService.removeCategory(bookId, categoryId);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+  @DeleteMapping(path = "/{bookId}/categories/{categoryId}")
+  public ResponseEntity<Void> removeCategoryFromBook(
+      @PathVariable Long bookId,
+      @PathVariable Long categoryId
+  ) {
+    bookService.removeCategory(bookId, categoryId);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
 }

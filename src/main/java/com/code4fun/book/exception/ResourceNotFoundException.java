@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class ResourceNotFoundException extends RuntimeException {
 
-    public ResourceNotFoundException(ErrorDetails details) {
-        super(getMessage(details));
-        log.warn(getMessage(details));
-    }
+  public ResourceNotFoundException(ErrorDetails details) {
+    super(getMessage(details));
+    log.warn(getMessage(details));
+  }
 
-    private static String getMessage(ErrorDetails details) {
-        return String.format("%s not found with %s : '%s' \n%s",
-                details.getResourceName(), details.getFieldName(), details.getFieldValue(), details.getTimestamp());
-    }
+  private static String getMessage(ErrorDetails details) {
+    return String.format("%s not found with %s : '%s' \n%s",
+        details.getResourceName(), details.getFieldName(), details.getFieldValue(), details.getTimestamp());
+  }
 }
 
