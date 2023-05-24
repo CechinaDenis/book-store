@@ -8,7 +8,7 @@ import java.util.Set;
 @Data
 @Builder
 public class CategoryResponseDto {
-    private Long id;
-    private String name;
-    private Set<Long> bookIds;
+  private Long id;
+  private String name;
+  private Set<Long> bookIds;
 }

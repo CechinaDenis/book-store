@@ -8,8 +8,8 @@ import java.util.Set;
 @Data
 @Builder
 public class AuthorResponseDto {
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private Set<Long> bookIds;
+  private Long id;
+  private String firstName;
+  private String lastName;
+  private Set<Long> bookIds;
 }
