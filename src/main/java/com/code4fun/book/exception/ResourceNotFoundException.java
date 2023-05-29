@@ -15,7 +15,7 @@ public class ResourceNotFoundException extends RuntimeException {
 
   private static String getMessage(ErrorDetails details) {
     return String.format("%s not found with %s : '%s' \n%s",
-        details.getResourceName(), details.getFieldName(), details.getFieldValue(), details.getTimestamp());
+        details.resourceName(), details.fieldName(), details.fieldValue(), details.timestamp());
   }
 }
 
