@@ -8,13 +8,13 @@ import java.util.Set;
 @Data
 @Builder
 public class BookResponseDto {
-  private Long id;
+  private String uuid;
   private String name;
   private String reading;
   private String series;
   private Integer year;
   private Integer duration;
   private Integer quality;
-  private Set<Long> authorIds;
-  private Set<Long> categoryIds;
+  private Set<String> authorIds;
+  private Set<String> categoryIds;
 }

@@ -4,8 +4,9 @@ import com.code4fun.book.dto.requestDto.CategoryRequestDto;
 import com.code4fun.book.dto.responseDto.CategoryResponseDto;
 import com.code4fun.book.service.CategoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,28 +16,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path = "api/categories", produces = "application/json; charset=utf-8")
+@RequestMapping(path = "/api/categories", produces = "application/json; charset=utf-8")
 public class CategoryController {
   private final CategoryService categoryService;
 
   @GetMapping(path = "/{id}")
-  public CategoryResponseDto findById(@PathVariable Long id) {
+  public CategoryResponseDto findById(@PathVariable String id) {
     return categoryService.findById(id);
   }
 
   @GetMapping
-  public List<CategoryResponseDto> findAll() {
-    return categoryService.findAll();
+  public Page<CategoryResponseDto> findAll(@PageableDefault Pageable pageable) {
+    return categoryService.findAll(pageable);
   }
 
   @PostMapping
-  public ResponseEntity<CategoryResponseDto> add(@RequestBody CategoryRequestDto requestDto) {
-    final var _responseDto = categoryService.save(requestDto);
-    return new ResponseEntity<>(_responseDto, HttpStatus.CREATED);
+  public CategoryResponseDto add(@RequestBody CategoryRequestDto requestDto) {
+    return categoryService.save(requestDto);
   }
 
   @PutMapping
@@ -45,8 +43,7 @@ public class CategoryController {
   }
 
   @DeleteMapping(path = "/{id}")
-  public ResponseEntity<Void> delete(@PathVariable Long id) {
+  public void delete(@PathVariable String id) {
     categoryService.delete(id);
-    return new ResponseEntity<>(HttpStatus.OK);
   }
 }
