@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class BookRequestDto {
-  private Long id;
+  private String uuid;
   private Integer year;
   private Integer duration;
   private Integer quality;

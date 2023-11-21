@@ -1,67 +1,63 @@
 package com.code4fun.book.service;
 
-import com.code4fun.book.dto.CategoryMapper;
 import com.code4fun.book.dto.requestDto.CategoryRequestDto;
 import com.code4fun.book.dto.responseDto.CategoryResponseDto;
 import com.code4fun.book.exception.ErrorDetails;
 import com.code4fun.book.exception.ResourceNotFoundException;
+import com.code4fun.book.mapper.CategoryMapper;
 import com.code4fun.book.model.Category;
 import com.code4fun.book.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class CategoryService implements MyService<CategoryRequestDto, CategoryResponseDto, Long> {
+public class CategoryService {
   private final CategoryRepository categoryRepository;
   private final Clock clock;
   private final CategoryMapper mapper;
 
-  @Override
-  public CategoryResponseDto findById(Long id) {
+  public CategoryResponseDto findById(String id) {
     log.info("Getting Category by ID: {}", id);
-    final var _category = this.getById(id);
-    return mapper.map(_category);
+    final var category = this.getById(id);
+    return mapper.map(category);
   }
 
-  @Override
-  public List<CategoryResponseDto> findAll() {
+  public Page<CategoryResponseDto> findAll(Pageable pageable) {
     log.info("Getting all Categories");
-    return mapper.map(categoryRepository.findAll());
+    return mapper.map(categoryRepository.findAll(pageable));
   }
 
-  @Override
   public CategoryResponseDto save(CategoryRequestDto requestDto) {
     log.info("Saving a new Category");
-    final var _category = mapper.map(requestDto);
-    return mapper.map(categoryRepository.save(_category));
+    final var category = mapper.map(requestDto);
+    return mapper.map(categoryRepository.save(category));
   }
 
   @Transactional
-  @Override
   public CategoryResponseDto update(CategoryRequestDto requestDto) {
-    final var id = requestDto.getId();
+    final var id = requestDto.getUuid();
     log.info("Updating Category with ID: {}", id);
-    final var _category = this.getById(id);
-    _category.setName(requestDto.getName());
-    return mapper.map(_category);
+    final var category = this.getById(id);
+    category.setName(requestDto.getName());
+    return mapper.map(category);
   }
 
-  @Override
-  public void delete(Long id) {
+  public void delete(String id) {
     log.info("Deleting Category by ID: {}", id);
-    final var _category = getById(id);
-    categoryRepository.delete(_category);
+    final var category = getById(id);
+    categoryRepository.delete(category);
   }
 
-  Category getById(Long id) {
+  Category getById(String id) {
     return categoryRepository.findById(id).orElseThrow(() -> {
       final var details = new ErrorDetails(LocalDateTime.now(clock), "Category Id", "Id", id);
       return new ResourceNotFoundException(details);
