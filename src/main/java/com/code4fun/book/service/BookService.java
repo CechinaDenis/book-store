@@ -7,15 +7,14 @@ import com.code4fun.book.exception.ResourceNotFoundException;
 import com.code4fun.book.mapper.BookMapper;
 import com.code4fun.book.model.Book;
 import com.code4fun.book.repository.BookRepository;
+import java.time.Clock;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.Clock;
-import java.time.LocalDateTime;
 
 @Slf4j
 @Service
@@ -100,10 +99,13 @@ public class BookService {
   }
 
   Book getById(String id) {
-    return bookRepository.findById(id)
-        .orElseThrow(() -> {
-          final ErrorDetails details = new ErrorDetails(LocalDateTime.now(clock), "Book Id", "Id", id);
-          return new ResourceNotFoundException(details);
-        });
+    return bookRepository
+        .findById(id)
+        .orElseThrow(
+            () -> {
+              final ErrorDetails details =
+                  new ErrorDetails(LocalDateTime.now(clock), "Book Id", "Id", id);
+              return new ResourceNotFoundException(details);
+            });
   }
 }

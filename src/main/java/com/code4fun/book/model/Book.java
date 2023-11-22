@@ -1,16 +1,15 @@
 package com.code4fun.book.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import java.util.HashSet;
-import java.util.Set;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -29,19 +28,18 @@ public class Book extends com.code4fun.book.model.Entity {
   @JoinTable(
       name = "books_authors",
       joinColumns = @JoinColumn(name = "book_id"),
-      inverseJoinColumns = @JoinColumn(name = "author_id")
-  )
+      inverseJoinColumns = @JoinColumn(name = "author_id"))
   private Set<Author> authors = new HashSet<>();
 
   @ManyToMany(cascade = CascadeType.ALL)
   @JoinTable(
       name = "books_categories",
       joinColumns = @JoinColumn(name = "book_id"),
-      inverseJoinColumns = @JoinColumn(name = "category_id")
-  )
+      inverseJoinColumns = @JoinColumn(name = "category_id"))
   private Set<Category> categories = new HashSet<>();
 
-  public Book(String name, String reading, String series, Integer year, Integer duration, Integer quality) {
+  public Book(
+      String name, String reading, String series, Integer year, Integer duration, Integer quality) {
     this.name = name;
     this.reading = reading;
     this.series = series;

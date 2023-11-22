@@ -1,14 +1,13 @@
 package com.code4fun.book.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import java.util.HashSet;
-import java.util.Set;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -18,6 +17,7 @@ public class Author extends com.code4fun.book.model.Entity {
 
   @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL)
   private final Set<Book> books = new HashSet<>();
+
   private String firstName;
   private String lastName;
 

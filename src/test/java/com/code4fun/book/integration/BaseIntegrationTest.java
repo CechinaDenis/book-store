@@ -11,6 +11,5 @@ import org.springframework.test.web.servlet.MockMvc;
 @ActiveProfiles("it")
 @AutoConfigureMockMvc
 public class BaseIntegrationTest {
-  @Autowired
-  protected MockMvc mockMvc;
+  @Autowired protected MockMvc mockMvc;
 }

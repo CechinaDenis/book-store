@@ -39,17 +39,13 @@ public class BookController {
 
   @PostMapping("/{bookId}/authors/{authorId}")
   public BookResponseDto addAuthorToBook(
-      @PathVariable String bookId,
-      @PathVariable String authorId
-  ) {
+      @PathVariable String bookId, @PathVariable String authorId) {
     return bookService.addAuthor(bookId, authorId);
   }
 
   @PostMapping("/{bookId}/categories/{categoryId}")
   public BookResponseDto addCategoryToBook(
-      @PathVariable String bookId,
-      @PathVariable String categoryId
-  ) {
+      @PathVariable String bookId, @PathVariable String categoryId) {
     return bookService.addCategory(bookId, categoryId);
   }
 
@@ -64,18 +60,12 @@ public class BookController {
   }
 
   @DeleteMapping("/{id}/authors/{authorId}")
-  public void removeAuthorFromBook(
-      @PathVariable String id,
-      @PathVariable String authorId
-  ) {
+  public void removeAuthorFromBook(@PathVariable String id, @PathVariable String authorId) {
     bookService.removeAuthor(id, authorId);
   }
 
   @DeleteMapping("/{id}/categories/{categoryId}")
-  public void removeCategoryFromBook(
-      @PathVariable String id,
-      @PathVariable String categoryId
-  ) {
+  public void removeCategoryFromBook(@PathVariable String id, @PathVariable String categoryId) {
     bookService.removeCategory(id, categoryId);
   }
 }

@@ -1,14 +1,13 @@
 package com.code4fun.book.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 @Getter
 @ToString
@@ -20,8 +19,7 @@ public class Entity {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private String uuid;
 
-  @Transient
-  private String assignedUuid;
+  @Transient private String assignedUuid;
 
   public boolean hasUuid() {
     return getUuid() != null;

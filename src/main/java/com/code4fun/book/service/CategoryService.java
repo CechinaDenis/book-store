@@ -7,15 +7,14 @@ import com.code4fun.book.exception.ResourceNotFoundException;
 import com.code4fun.book.mapper.CategoryMapper;
 import com.code4fun.book.model.Category;
 import com.code4fun.book.repository.CategoryRepository;
+import java.time.Clock;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.Clock;
-import java.time.LocalDateTime;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -58,9 +57,13 @@ public class CategoryService {
   }
 
   Category getById(String id) {
-    return categoryRepository.findById(id).orElseThrow(() -> {
-      final var details = new ErrorDetails(LocalDateTime.now(clock), "Category Id", "Id", id);
-      return new ResourceNotFoundException(details);
-    });
+    return categoryRepository
+        .findById(id)
+        .orElseThrow(
+            () -> {
+              final var details =
+                  new ErrorDetails(LocalDateTime.now(clock), "Category Id", "Id", id);
+              return new ResourceNotFoundException(details);
+            });
   }
 }

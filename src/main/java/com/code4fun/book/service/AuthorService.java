@@ -5,14 +5,13 @@ import com.code4fun.book.dto.responseDto.AuthorResponseDto;
 import com.code4fun.book.mapper.AuthorMapper;
 import com.code4fun.book.model.Author;
 import com.code4fun.book.repository.AuthorRepository;
+import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityNotFoundException;
 
 @Service
 @Slf4j
@@ -54,11 +53,13 @@ public class AuthorService {
   }
 
   Author getById(String id) {
-    return authorRepository.findById(id)
-        .orElseThrow(() -> {
-          var errorMessage = String.format("Author with uuid:'%s' was not found.", id);
-          log.warn(errorMessage);
-          return new EntityNotFoundException(errorMessage);
-        });
+    return authorRepository
+        .findById(id)
+        .orElseThrow(
+            () -> {
+              var errorMessage = String.format("Author with uuid:'%s' was not found.", id);
+              log.warn(errorMessage);
+              return new EntityNotFoundException(errorMessage);
+            });
   }
 }

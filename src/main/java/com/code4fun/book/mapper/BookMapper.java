@@ -18,6 +18,9 @@ public interface BookMapper {
   }
 
   @Mapping(source = "authors", target = "authorIds", qualifiedByName = "mapAuthorsToAuthorIds")
-  @Mapping(source = "categories", target = "categoryIds", qualifiedByName = "mapCategoriesToCategoryIds")
+  @Mapping(
+      source = "categories",
+      target = "categoryIds",
+      qualifiedByName = "mapCategoriesToCategoryIds")
   BookResponseDto map(Book book);
 }
