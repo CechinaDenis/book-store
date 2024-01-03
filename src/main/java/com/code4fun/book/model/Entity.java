@@ -14,6 +14,7 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @MappedSuperclass
 public class Entity {
+
   @EqualsAndHashCode.Include
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
