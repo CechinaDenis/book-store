@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 public class BookResponseDto {
-  private String uuid;
+  private String id;
   private String name;
   private String reading;
   private String series;

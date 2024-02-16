@@ -8,7 +8,6 @@ import lombok.Data;
 @Data
 @Builder
 public class BookRequestDto {
-  @NotBlank private String uuid;
   @NotNull private Integer year;
   @NotNull private Integer duration;
   @NotNull private Integer quality;

@@ -1,0 +1,53 @@
+{
+  "content": [
+    {
+      "id": "author-1",
+      "firstName": "first-name-author-1",
+      "lastName": "last-name-author-1",
+      "bookIds": []
+    },
+    {
+      "id": "author-2",
+      "firstName": "first-name-author-2",
+      "lastName": "last-name-author-2",
+      "bookIds": []
+    },
+    {
+      "id": "author-3",
+      "firstName": "first-name-author-3",
+      "lastName": "last-name-author-3",
+      "bookIds": []
+    },
+    {
+      "id": "author-4",
+      "firstName": "first-name-author-4",
+      "lastName": "last-name-author-4",
+      "bookIds": []
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "empty": true,
+      "unsorted": true,
+      "sorted": false
+    },
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 10,
+    "unpaged": false,
+    "paged": true
+  },
+  "last": true,
+  "totalPages": 1,
+  "totalElements": 4,
+  "size": 10,
+  "number": 0,
+  "sort": {
+    "empty": true,
+    "unsorted": true,
+    "sorted": false
+  },
+  "first": true,
+  "numberOfElements": 4,
+  "empty": false
+}

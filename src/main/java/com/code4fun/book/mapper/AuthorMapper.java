@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 
 @Mapper(componentModel = "spring", uses = EntityToEntityIdsMapper.class)
 public interface AuthorMapper {
-  @Mapping(target = "uuid", ignore = true)
   @Mapping(target = "books", ignore = true)
   Author map(AuthorRequestDto requestDto);
 

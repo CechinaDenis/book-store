@@ -30,25 +30,29 @@ public class AuthorService {
     return mapper.map(authorRepository.findAll(pageable));
   }
 
+  @Transactional
   public AuthorResponseDto save(AuthorRequestDto requestDto) {
     log.info("Saving  new Author: {}", requestDto);
     final var author = mapper.map(requestDto);
+
     return mapper.map(authorRepository.save(author));
   }
 
   @Transactional
-  public AuthorResponseDto update(AuthorRequestDto requestDto) {
-    final var authorId = requestDto.getUuid();
-    log.info("Updating Author with ID: {}", authorId);
-    var author = this.getById(authorId);
+  public AuthorResponseDto update(String id, AuthorRequestDto requestDto) {
+    log.info("Updating Author with ID: {}", id);
+    final var author = this.getById(id);
     author.setFirstName(requestDto.getFirstName());
     author.setLastName(requestDto.getLastName());
+
     return mapper.map(author);
   }
 
+  @Transactional
   public void delete(String id) {
     log.info("Deleting Author with ID: {}", id);
-    final var author = this.getById(id);
+    final var author = getById(id);
+    author.getBooks().forEach(b -> b.removeAuthor(author));
     authorRepository.delete(author);
   }
 
@@ -57,9 +61,10 @@ public class AuthorService {
         .findById(id)
         .orElseThrow(
             () -> {
-              var errorMessage = String.format("Author with uuid:'%s' was not found.", id);
-              log.warn(errorMessage);
-              return new EntityNotFoundException(errorMessage);
+              final var message = String.format("Author with id: '%s' was not found.", id);
+              log.warn(message);
+
+              return new EntityNotFoundException(message);
             });
   }
 }

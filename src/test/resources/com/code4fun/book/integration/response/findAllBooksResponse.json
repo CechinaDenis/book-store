@@ -1,0 +1,77 @@
+{
+  "content": [
+    {
+      "id": "book-1",
+      "name": "book-1",
+      "reading": "reading-1",
+      "series": "series-1",
+      "year": 2000,
+      "duration": 480,
+      "quality": 128,
+      "authorIds": [
+        "author-1"
+      ],
+      "categoryIds": [
+        "category-1"
+      ]
+    },
+    {
+      "id": "book-2",
+      "name": "book-2",
+      "reading": "reading-1",
+      "series": "series-1",
+      "year": 2001,
+      "duration": 490,
+      "quality": 128,
+      "authorIds": [],
+      "categoryIds": []
+    },
+    {
+      "id": "book-3",
+      "name": "book-3",
+      "reading": "reading-1",
+      "series": "series-2",
+      "year": 2012,
+      "duration": 470,
+      "quality": 128,
+      "authorIds": [],
+      "categoryIds": []
+    },
+    {
+      "id": "book-4",
+      "name": "book-4",
+      "reading": "reading-2",
+      "series": "series-3",
+      "year": 2021,
+      "duration": 450,
+      "quality": 128,
+      "authorIds": [],
+      "categoryIds": []
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "empty": true,
+      "unsorted": true,
+      "sorted": false
+    },
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 10,
+    "unpaged": false,
+    "paged": true
+  },
+  "last": true,
+  "totalElements": 4,
+  "totalPages": 1,
+  "size": 10,
+  "number": 0,
+  "sort": {
+    "empty": true,
+    "unsorted": true,
+    "sorted": false
+  },
+  "first": true,
+  "numberOfElements": 4,
+  "empty": false
+}

@@ -1,32 +1,43 @@
 package com.code4fun.book.model;
 
+import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
 @Getter
-@ToString
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @MappedSuperclass
-public class Entity {
+public class Entity implements Serializable {
 
-  @EqualsAndHashCode.Include
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private String uuid;
+  @GeneratedValue(generator = "nanoid-generator")
+  @GenericGenerator(name = "nanoid-generator", strategy = "com.code4fun.book.model.NanoIdGenerator")
+  private String id;
 
-  @Transient private String assignedUuid;
+  @Transient private String assignedId;
 
-  public boolean hasUuid() {
-    return getUuid() != null;
+  public void assignId(String id) {
+    this.assignedId = id;
   }
 
-  public void assignUuid(String uuid) {
-    this.assignedUuid = uuid;
+  public String toString() {
+    return "Entity(id=" + this.getId() + ")";
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Entity entity = (Entity) o;
+    return Objects.equals(id, entity.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
   }
 }

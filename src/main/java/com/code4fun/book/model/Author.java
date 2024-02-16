@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,13 +14,16 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "author")
 public class Author extends com.code4fun.book.model.Entity {
-
-  @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL)
-  private final Set<Book> books = new HashSet<>();
 
   private String firstName;
   private String lastName;
+
+  @ManyToMany(
+      mappedBy = "authors",
+      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+  private final Set<Book> books = new HashSet<>();
 
   public Author(String firstName, String lastName) {
     this.firstName = firstName;

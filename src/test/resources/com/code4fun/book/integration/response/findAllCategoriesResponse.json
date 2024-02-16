@@ -1,0 +1,49 @@
+{
+  "content": [
+    {
+      "id": "category-1",
+      "name": "category-name-1",
+      "bookIds": []
+    },
+    {
+      "id": "category-2",
+      "name": "category-name-2",
+      "bookIds": []
+    },
+    {
+      "id": "category-3",
+      "name": "category-name-3",
+      "bookIds": []
+    },
+    {
+      "id": "category-4",
+      "name": "category-name-4",
+      "bookIds": []
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 10,
+    "paged": true,
+    "unpaged": false
+  },
+  "last": true,
+  "totalPages": 1,
+  "totalElements": 4,
+  "size": 10,
+  "number": 0,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "first": true,
+  "numberOfElements": 4,
+  "empty": false
+}

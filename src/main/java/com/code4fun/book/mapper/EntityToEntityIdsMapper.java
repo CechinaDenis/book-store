@@ -12,16 +12,16 @@ import org.mapstruct.Named;
 public interface EntityToEntityIdsMapper {
   @Named("mapAuthorsToAuthorIds")
   default Set<String> mapAuthorsToAuthorIds(Set<Author> authors) {
-    return authors.stream().map(Author::getUuid).collect(Collectors.toSet());
+    return authors.stream().map(Author::getId).collect(Collectors.toSet());
   }
 
   @Named("mapBooksToBookIds")
   default Set<String> mapBooksToBookIds(Set<Book> books) {
-    return books.stream().map(Book::getUuid).collect(Collectors.toSet());
+    return books.stream().map(Book::getId).collect(Collectors.toSet());
   }
 
   @Named("mapCategoriesToCategoryIds")
   default Set<String> mapCategoriesToCategoryIds(Set<Category> categories) {
-    return categories.stream().map(Category::getUuid).collect(Collectors.toSet());
+    return categories.stream().map(Category::getId).collect(Collectors.toSet());
   }
 }

@@ -1,0 +1,17 @@
+<dataset>
+    <author id="author-1" first_name="first-name-author-1" last_name="last-name-author-1"/>
+    <author id="author-2" first_name="first-name-author-2" last_name="last-name-author-2"/>
+    <author id="author-3" first_name="first-name-author-3" last_name="last-name-author-3"/>
+    <author id="author-4" first_name="first-name-author-4" last_name="last-name-author-4"/>
+
+    <book id="book-1" name="book-1" reading="reading-1" series="series-1" year="2000" duration="480" quality="128"/>
+    <book id="book-2" name="book-2" reading="reading-1" series="series-1" year="2001" duration="490" quality="128"/>
+    <book id="book-3" name="book-3" reading="reading-1" series="series-2" year="2012" duration="470" quality="128"/>
+    <book id="book-4" name="book-4" reading="reading-2" series="series-3" year="2021" duration="450" quality="128"/>
+
+    <books_authors book_id="book-1" author_id="author-1"/>
+
+    <category id="category-1" name="category-1"/>
+
+    <books_categories book_id="book-1" category_id="category-1"/>
+</dataset>
