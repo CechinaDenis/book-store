@@ -1,7 +1,7 @@
 package com.code4fun.book.mapper;
 
-import com.code4fun.book.dto.requestDto.BookRequestDto;
-import com.code4fun.book.dto.responseDto.BookResponseDto;
+import com.code4fun.book.dto.request.BookRequest;
+import com.code4fun.book.dto.response.BookResponse;
 import com.code4fun.book.model.Book;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -11,9 +11,9 @@ import org.springframework.data.domain.Page;
 public interface BookMapper {
   @Mapping(target = "authors", ignore = true)
   @Mapping(target = "categories", ignore = true)
-  Book map(BookRequestDto requestDto);
+  Book map(BookRequest request);
 
-  default Page<BookResponseDto> map(Page<Book> page) {
+  default Page<BookResponse> map(Page<Book> page) {
     return page.map(this::map);
   }
 
@@ -22,5 +22,5 @@ public interface BookMapper {
       source = "categories",
       target = "categoryIds",
       qualifiedByName = "mapCategoriesToCategoryIds")
-  BookResponseDto map(Book book);
+  BookResponse map(Book book);
 }

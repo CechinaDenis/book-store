@@ -1,7 +1,7 @@
 package com.code4fun.book.controller;
 
-import com.code4fun.book.dto.requestDto.CategoryRequestDto;
-import com.code4fun.book.dto.responseDto.CategoryResponseDto;
+import com.code4fun.book.dto.request.CategoryRequest;
+import com.code4fun.book.dto.response.CategoryResponse;
 import com.code4fun.book.service.CategoryService;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -29,27 +29,27 @@ public class CategoryController {
   private final CategoryService categoryService;
 
   @GetMapping(path = "/{id}")
-  public CategoryResponseDto findById(
+  public CategoryResponse findById(
       @PathVariable @NotBlank(message = "ID must not be blank.") String id) {
     return categoryService.findById(id);
   }
 
   @GetMapping
-  public Page<CategoryResponseDto> findAll(@PageableDefault Pageable pageable) {
+  public Page<CategoryResponse> findAll(@PageableDefault Pageable pageable) {
     return categoryService.findAll(pageable);
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public CategoryResponseDto create(@Valid @RequestBody CategoryRequestDto requestDto) {
-    return categoryService.save(requestDto);
+  public CategoryResponse create(@Valid @RequestBody CategoryRequest request) {
+    return categoryService.save(request);
   }
 
   @PutMapping("/{id}")
-  public CategoryResponseDto update(
+  public CategoryResponse update(
       @PathVariable @NotBlank(message = "ID must not be blank.") String id,
-      @Valid @RequestBody CategoryRequestDto requestDto) {
-    return categoryService.update(id, requestDto);
+      @Valid @RequestBody CategoryRequest request) {
+    return categoryService.update(id, request);
   }
 
   @DeleteMapping(path = "/{id}")

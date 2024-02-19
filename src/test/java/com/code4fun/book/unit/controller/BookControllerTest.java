@@ -1,7 +1,7 @@
 // package com.code4fun.book.controller;
 //
-// import com.code4fun.book.dto.requestDto.BookRequestDto;
-// import com.code4fun.book.dto.responseDto.BookResponseDto;
+// import com.code4fun.book.dto.requestDto.BookRequest;
+// import com.code4fun.book.dto.responseDto.BookResponse;
 // import com.code4fun.book.service.BookService;
 // import org.junit.jupiter.api.Test;
 // import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +30,7 @@
 //
 // @Test
 // void findById() {
-// final var _responseDto = BookResponseDto
+// final var _responseDto = BookResponse
 // .builder()
 // .id(1L)
 // .name("Eye of the World")
@@ -48,7 +48,7 @@
 // @Test
 // void findAll() {
 // final var responseDtos = List.of(
-// BookResponseDto
+// BookResponse
 // .builder()
 // .id(1L)
 // .name("Eye of the World")
@@ -58,7 +58,7 @@
 // .duration(45)
 // .quality(56)
 // .build(),
-// BookResponseDto
+// BookResponse
 // .builder()
 // .id(2L)
 // .name("The Great Hunt")
@@ -68,7 +68,7 @@
 // .duration(45)
 // .quality(56)
 // .build(),
-// BookResponseDto
+// BookResponse
 // .builder()
 // .id(3L)
 // .name("The Dragon Reborn")
@@ -78,7 +78,7 @@
 // .duration(45)
 // .quality(56)
 // .build(),
-// BookResponseDto
+// BookResponse
 // .builder()
 // .id(4L)
 // .name("The Shadow Rising")
@@ -89,7 +89,7 @@
 // .quality(56)
 // .build()
 // );
-//// new PageImpl<BookResponseDto>(responseDtos, )
+//// new PageImpl<BookResponse>(responseDtos, )
 //// when(bookService.findAll()).thenReturn(responseDtos);
 //
 //// assertEquals(responseDtos, bookController.findAll());
@@ -97,7 +97,7 @@
 //
 // @Test
 // void add() {
-// final var _requestDto = BookRequestDto
+// final var _requestDto = BookRequest
 // .builder()
 // .name("Eye of the World")
 // .reading("Stevin Rodrigo")
@@ -106,7 +106,7 @@
 // .duration(45)
 // .quality(56)
 // .build();
-// final var _responseDto = BookResponseDto
+// final var _responseDto = BookResponse
 // .builder()
 // .id(1L)
 // .name("Eye of the World")
@@ -124,7 +124,7 @@
 //
 // @Test
 // void addAuthorToBook() {
-// final var _responseDto = BookResponseDto
+// final var _responseDto = BookResponse
 // .builder()
 // .id(1L)
 // .name("Eye of the World")
@@ -142,7 +142,7 @@
 //
 // @Test
 // void addCategoryToBook() {
-// final var _responseDto = BookResponseDto
+// final var _responseDto = BookResponse
 // .builder()
 // .id(1L)
 // .name("Eye of the World")
@@ -160,7 +160,7 @@
 //
 // @Test
 // void edit() {
-// final var _requestDto = BookRequestDto.builder()
+// final var _requestDto = BookRequest.builder()
 // .id(1L)
 // .name("Eye of the World")
 // .reading("Stevin Rodrigo")
@@ -169,7 +169,7 @@
 // .duration(45)
 // .quality(56)
 // .build();
-// final var _responseDto = BookResponseDto
+// final var _responseDto = BookResponse
 // .builder()
 // .id(1L)
 // .name("Eye of the World")

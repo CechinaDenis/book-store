@@ -1,13 +1,16 @@
 package com.code4fun.book.model;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 import lombok.Getter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Getter
 @MappedSuperclass
@@ -19,6 +22,10 @@ public class Entity implements Serializable {
   private String id;
 
   @Transient private String assignedId;
+
+  @CreationTimestamp private Instant createdAt;
+
+  @UpdateTimestamp private Instant updatedAt;
 
   public void assignId(String id) {
     this.assignedId = id;

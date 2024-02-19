@@ -1,7 +1,7 @@
 // package com.code4fun.book.controller;
 //
-// import com.code4fun.book.dto.requestDto.AuthorRequestDto;
-// import com.code4fun.book.dto.responseDto.AuthorResponseDto;
+// import com.code4fun.book.dto.requestDto.AuthorRequest;
+// import com.code4fun.book.dto.responseDto.AuthorResponse;
 // import com.code4fun.book.service.AuthorService;
 // import org.junit.jupiter.api.Test;
 // import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +29,7 @@
 // void findByIdTest() {
 // final var _id = 1L;
 // final var _authorResponseDto =
-// AuthorResponseDto.builder().id(_id).firstName("Foo").lastName("Boo").build();
+// AuthorResponse.builder().id(_id).firstName("Foo").lastName("Boo").build();
 // when(authorService.findById(_id)).thenReturn(_authorResponseDto);
 //
 // assertEquals(_authorResponseDto, authorController.findById(_id));
@@ -38,9 +38,9 @@
 // @Test
 // void findAllTest() {
 // final var _authorResponseDtos = List.of(
-// AuthorResponseDto.builder().id(1L).firstName("Foo").lastName("Boo").build(),
-// AuthorResponseDto.builder().id(2L).firstName("Steven").lastName("Born").build(),
-// AuthorResponseDto.builder().id(3L).firstName("Fillip").lastName("Rain").build()
+// AuthorResponse.builder().id(1L).firstName("Foo").lastName("Boo").build(),
+// AuthorResponse.builder().id(2L).firstName("Steven").lastName("Born").build(),
+// AuthorResponse.builder().id(3L).firstName("Fillip").lastName("Rain").build()
 // );
 //// when(authorService.findAll()).thenReturn(_authorResponseDtos);
 //
@@ -50,9 +50,9 @@
 // @Test
 // void addTest() {
 // final var _requestDto =
-// AuthorRequestDto.builder().firstName("James").lastName("Bond").build();
+// AuthorRequest.builder().firstName("James").lastName("Bond").build();
 // final var _responseDto =
-// AuthorResponseDto.builder().id(1L).firstName("James").lastName("Bond").build();
+// AuthorResponse.builder().id(1L).firstName("James").lastName("Bond").build();
 // when(authorService.save(_requestDto)).thenReturn(_responseDto);
 //
 // assertEquals(new ResponseEntity<>(_responseDto, HttpStatus.CREATED),
@@ -62,9 +62,9 @@
 // @Test
 // void editTest() {
 // final var _requestDto =
-// AuthorRequestDto.builder().id(1L).firstName("James").lastName("Bond").build();
+// AuthorRequest.builder().id(1L).firstName("James").lastName("Bond").build();
 // final var _responseDto =
-// AuthorResponseDto.builder().id(1L).firstName("James").lastName("Bond").build();
+// AuthorResponse.builder().id(1L).firstName("James").lastName("Bond").build();
 // when(authorService.update(_requestDto)).thenReturn(_responseDto);
 //
 // assertEquals(_responseDto, authorController.edit(_requestDto));

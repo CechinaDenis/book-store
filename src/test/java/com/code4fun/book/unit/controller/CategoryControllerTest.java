@@ -1,7 +1,7 @@
 // package com.code4fun.book.controller;
 //
-// import com.code4fun.book.dto.requestDto.CategoryRequestDto;
-// import com.code4fun.book.dto.responseDto.CategoryResponseDto;
+// import com.code4fun.book.dto.requestDto.CategoryRequest;
+// import com.code4fun.book.dto.responseDto.CategoryResponse;
 // import com.code4fun.book.service.CategoryService;
 // import org.junit.jupiter.api.Test;
 // import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +29,7 @@
 // void findById() {
 // final var _id = 1L;
 // final var _responseDto =
-// CategoryResponseDto.builder().id(_id).name("Fantasy").build();
+// CategoryResponse.builder().id(_id).name("Fantasy").build();
 // when(categoryService.findById(_id)).thenReturn(_responseDto);
 //
 // assertEquals(_responseDto, categoryController.findById(_id));
@@ -38,10 +38,10 @@
 // @Test
 // void findAll() {
 // final var _responseDtos = List.of(
-// CategoryResponseDto.builder().id(1L).name("Fantasy").build(),
-// CategoryResponseDto.builder().id(2L).name("Thriller").build(),
-// CategoryResponseDto.builder().id(3L).name("Comedy").build(),
-// CategoryResponseDto.builder().id(4L).name("LitRPG").build()
+// CategoryResponse.builder().id(1L).name("Fantasy").build(),
+// CategoryResponse.builder().id(2L).name("Thriller").build(),
+// CategoryResponse.builder().id(3L).name("Comedy").build(),
+// CategoryResponse.builder().id(4L).name("LitRPG").build()
 // );
 //// when(categoryService.findAll()).thenReturn(_responseDtos);
 //
@@ -50,9 +50,9 @@
 //
 // @Test
 // void add() {
-// final var _requestDto = CategoryRequestDto.builder().name("Fantasy").build();
+// final var _requestDto = CategoryRequest.builder().name("Fantasy").build();
 // final var _responseDto =
-// CategoryResponseDto.builder().id(1L).name("Fantasy").build();
+// CategoryResponse.builder().id(1L).name("Fantasy").build();
 // when(categoryService.save(_requestDto)).thenReturn(_responseDto);
 //
 // assertEquals(new ResponseEntity<>(_responseDto, HttpStatus.CREATED),
@@ -62,10 +62,10 @@
 // @Test
 // void edit() {
 // final var _requestDto =
-// CategoryRequestDto.builder().id(1L).name("Fantasy").build();
+// CategoryRequest.builder().id(1L).name("Fantasy").build();
 // final var _responseDto =
-// CategoryResponseDto.builder().id(1L).name("Fantasy").build();
-// when(categoryService.update(isA(CategoryRequestDto.class))).thenReturn(_responseDto);
+// CategoryResponse.builder().id(1L).name("Fantasy").build();
+// when(categoryService.update(isA(CategoryRequest.class))).thenReturn(_responseDto);
 //
 // assertEquals(_responseDto, categoryController.edit(_requestDto));
 // }

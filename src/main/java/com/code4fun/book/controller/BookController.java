@@ -1,7 +1,7 @@
 package com.code4fun.book.controller;
 
-import com.code4fun.book.dto.requestDto.BookRequestDto;
-import com.code4fun.book.dto.responseDto.BookResponseDto;
+import com.code4fun.book.dto.request.BookRequest;
+import com.code4fun.book.dto.response.BookResponse;
 import com.code4fun.book.service.BookService;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -29,26 +29,26 @@ public class BookController {
   private final BookService bookService;
 
   @GetMapping("/{id}")
-  public BookResponseDto findById(
+  public BookResponse findById(
       @PathVariable @NotBlank(message = "ID must not be blank.") String id) {
     return bookService.findById(id);
   }
 
   @GetMapping
-  public Page<BookResponseDto> findAll(@PageableDefault Pageable pageable) {
+  public Page<BookResponse> findAll(@PageableDefault Pageable pageable) {
     return bookService.findAll(pageable);
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public BookResponseDto create(@Valid @RequestBody BookRequestDto requestDto) {
-    return bookService.save(requestDto);
+  public BookResponse create(@Valid @RequestBody BookRequest request) {
+    return bookService.save(request);
   }
 
   @PutMapping("/{id}")
-  public BookResponseDto update(
-      @PathVariable @NotBlank String id, @Valid @RequestBody BookRequestDto requestDto) {
-    return bookService.update(id, requestDto);
+  public BookResponse update(
+      @PathVariable @NotBlank String id, @Valid @RequestBody BookRequest request) {
+    return bookService.update(id, request);
   }
 
   @DeleteMapping("/{id}")
@@ -57,13 +57,13 @@ public class BookController {
   }
 
   @PostMapping("/{bookId}/authors/{authorId}")
-  public BookResponseDto addAuthorToBook(
+  public BookResponse addAuthorToBook(
       @PathVariable @NotBlank String bookId, @PathVariable @NotBlank String authorId) {
     return bookService.addAuthor(bookId, authorId);
   }
 
   @PostMapping("/{bookId}/categories/{categoryId}")
-  public BookResponseDto addCategoryToBook(
+  public BookResponse addCategoryToBook(
       @PathVariable @NotBlank String bookId, @PathVariable @NotBlank String categoryId) {
     return bookService.addCategory(bookId, categoryId);
   }

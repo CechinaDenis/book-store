@@ -4,8 +4,8 @@
 // import com.code4fun.book.dto.AuthorMapperImpl;
 // import com.code4fun.book.mapper.EntityToEntityIdsMapper;
 // import com.code4fun.book.dto.EntityToEntityIdsMapperImpl;
-// import com.code4fun.book.dto.requestDto.AuthorRequestDto;
-// import com.code4fun.book.dto.responseDto.AuthorResponseDto;
+// import com.code4fun.book.dto.requestDto.AuthorRequest;
+// import com.code4fun.book.dto.responseDto.AuthorResponse;
 // import com.code4fun.book.exception.ErrorDetails;
 // import com.code4fun.book.exception.ResourceNotFoundException;
 // import com.code4fun.book.model.Author;
@@ -77,7 +77,7 @@
 // final long _id = 1L;
 // final var _author = authors.get(toIntExact(_id));
 // when(repository.findById(_id)).thenReturn(Optional.of(_author));
-// final var _responseDto = AuthorResponseDto.builder()
+// final var _responseDto = AuthorResponse.builder()
 // .id(_author.getId())
 // .firstName(_author.getFirstName())
 // .lastName(_author.getLastName())
@@ -106,7 +106,7 @@
 // final long _id = 1L;
 // final var _author = authors.get(toIntExact(_id));
 // when(repository.save(any(Author.class))).thenReturn(_author);
-// final var _requestDto = AuthorRequestDto
+// final var _requestDto = AuthorRequest
 // .builder()
 // .firstName("Steven")
 // .lastName("Born")
@@ -124,9 +124,9 @@
 // doReturn(Optional.of(_author)).when(repository).findById(1L);
 //
 // final var _requestDto =
-// AuthorRequestDto.builder().id(1L).firstName("Steven").lastName("Born").build();
+// AuthorRequest.builder().id(1L).firstName("Steven").lastName("Born").build();
 // final var _responseDto =
-// AuthorResponseDto.builder().id(1L).firstName("Steven").lastName("Born").bookIds(Collections.emptySet()).build();
+// AuthorResponse.builder().id(1L).firstName("Steven").lastName("Born").bookIds(Collections.emptySet()).build();
 //
 // assertEquals(service.update(_requestDto), _responseDto);
 // }

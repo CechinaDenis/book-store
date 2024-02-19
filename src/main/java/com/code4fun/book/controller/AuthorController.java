@@ -1,7 +1,7 @@
 package com.code4fun.book.controller;
 
-import com.code4fun.book.dto.requestDto.AuthorRequestDto;
-import com.code4fun.book.dto.responseDto.AuthorResponseDto;
+import com.code4fun.book.dto.request.AuthorRequest;
+import com.code4fun.book.dto.response.AuthorResponse;
 import com.code4fun.book.service.AuthorService;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -29,27 +29,27 @@ public class AuthorController {
   private final AuthorService authorService;
 
   @GetMapping("/{id}")
-  public AuthorResponseDto findById(
+  public AuthorResponse findById(
       @PathVariable @NotBlank(message = "ID must not be blank.") String id) {
     return authorService.findById(id);
   }
 
   @GetMapping
-  public Page<AuthorResponseDto> findAll(@PageableDefault Pageable pageable) {
+  public Page<AuthorResponse> findAll(@PageableDefault Pageable pageable) {
     return authorService.findAll(pageable);
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public AuthorResponseDto create(@Valid @RequestBody AuthorRequestDto requestDto) {
-    return authorService.save(requestDto);
+  public AuthorResponse create(@Valid @RequestBody AuthorRequest request) {
+    return authorService.save(request);
   }
 
   @PutMapping("/{id}")
-  public AuthorResponseDto update(
+  public AuthorResponse update(
       @PathVariable @NotBlank(message = "ID must not be blank.") String id,
-      @Valid @RequestBody AuthorRequestDto requestDto) {
-    return authorService.update(id, requestDto);
+      @Valid @RequestBody AuthorRequest request) {
+    return authorService.update(id, request);
   }
 
   @DeleteMapping("/{id}")

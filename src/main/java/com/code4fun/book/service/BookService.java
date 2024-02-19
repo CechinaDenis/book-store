@@ -1,7 +1,7 @@
 package com.code4fun.book.service;
 
-import com.code4fun.book.dto.requestDto.BookRequestDto;
-import com.code4fun.book.dto.responseDto.BookResponseDto;
+import com.code4fun.book.dto.request.BookRequest;
+import com.code4fun.book.dto.response.BookResponse;
 import com.code4fun.book.mapper.BookMapper;
 import com.code4fun.book.model.Book;
 import com.code4fun.book.repository.BookRepository;
@@ -23,36 +23,36 @@ public class BookService {
   private final CategoryService categoryService;
   private final BookMapper mapper;
 
-  public BookResponseDto findById(String id) {
+  public BookResponse findById(String id) {
     log.info("Getting Book by ID: {}", id);
     final var book = this.getById(id);
 
     return mapper.map(book);
   }
 
-  public Page<BookResponseDto> findAll(Pageable pageable) {
+  public Page<BookResponse> findAll(Pageable pageable) {
     log.info("Getting all Books");
 
     return mapper.map(bookRepository.findAll(pageable));
   }
 
-  public BookResponseDto save(BookRequestDto requestDto) {
-    log.info("Saving a new Book: {}", requestDto);
-    final var book = mapper.map(requestDto);
+  public BookResponse save(BookRequest request) {
+    log.info("Saving a new Book: {}", request);
+    final var book = mapper.map(request);
 
     return mapper.map(bookRepository.save(book));
   }
 
   @Transactional
-  public BookResponseDto update(String id, BookRequestDto requestDto) {
+  public BookResponse update(String id, BookRequest request) {
     log.info("Updating Book with ID: {}", id);
     final var book = this.getById(id);
-    book.setName(requestDto.getName());
-    book.setReading(requestDto.getReading());
-    book.setSeries(requestDto.getSeries());
-    book.setYear(requestDto.getYear());
-    book.setDuration(requestDto.getDuration());
-    book.setQuality(requestDto.getQuality());
+    book.setName(request.name());
+    book.setReading(request.reading());
+    book.setSeries(request.series());
+    book.setYear(request.year());
+    book.setDuration(request.duration());
+    book.setQuality(request.quality());
 
     return mapper.map(book);
   }
@@ -66,7 +66,7 @@ public class BookService {
   }
 
   @Transactional
-  public BookResponseDto addAuthor(String bookId, String authorId) {
+  public BookResponse addAuthor(String bookId, String authorId) {
     log.info("Adding Author with ID: {} to the Book with ID: {}", authorId, bookId);
     final var book = this.getById(bookId);
     final var author = authorService.getById(authorId);
@@ -85,7 +85,7 @@ public class BookService {
   }
 
   @Transactional
-  public BookResponseDto addCategory(String bookId, String categoryId) {
+  public BookResponse addCategory(String bookId, String categoryId) {
     log.info("Adding Category with ID: {} to the Book with ID: {}", categoryId, bookId);
     final var book = this.getById(bookId);
     final var category = categoryService.getById(categoryId);

@@ -1,7 +1,7 @@
 package com.code4fun.book.service;
 
-import com.code4fun.book.dto.requestDto.CategoryRequestDto;
-import com.code4fun.book.dto.responseDto.CategoryResponseDto;
+import com.code4fun.book.dto.request.CategoryRequest;
+import com.code4fun.book.dto.response.CategoryResponse;
 import com.code4fun.book.mapper.CategoryMapper;
 import com.code4fun.book.model.Category;
 import com.code4fun.book.repository.CategoryRepository;
@@ -20,32 +20,32 @@ public class CategoryService {
   private final CategoryRepository categoryRepository;
   private final CategoryMapper mapper;
 
-  public CategoryResponseDto findById(String id) {
+  public CategoryResponse findById(String id) {
     log.info("Getting Category by ID: {}", id);
     final var category = this.getById(id);
 
     return mapper.map(category);
   }
 
-  public Page<CategoryResponseDto> findAll(Pageable pageable) {
+  public Page<CategoryResponse> findAll(Pageable pageable) {
     log.info("Getting all Categories");
 
     return mapper.map(categoryRepository.findAll(pageable));
   }
 
   @Transactional
-  public CategoryResponseDto save(CategoryRequestDto requestDto) {
+  public CategoryResponse save(CategoryRequest request) {
     log.info("Saving a new Category");
-    final var category = mapper.map(requestDto);
+    final var category = mapper.map(request);
 
     return mapper.map(categoryRepository.save(category));
   }
 
   @Transactional
-  public CategoryResponseDto update(String id, CategoryRequestDto requestDto) {
+  public CategoryResponse update(String id, CategoryRequest request) {
     log.info("Updating Category with ID: {}", id);
     final var category = this.getById(id);
-    category.setName(requestDto.getName());
+    category.setName(request.name());
 
     return mapper.map(category);
   }

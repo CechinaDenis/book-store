@@ -1,7 +1,7 @@
 package com.code4fun.book.service;
 
-import com.code4fun.book.dto.requestDto.AuthorRequestDto;
-import com.code4fun.book.dto.responseDto.AuthorResponseDto;
+import com.code4fun.book.dto.request.AuthorRequest;
+import com.code4fun.book.dto.response.AuthorResponse;
 import com.code4fun.book.mapper.AuthorMapper;
 import com.code4fun.book.model.Author;
 import com.code4fun.book.repository.AuthorRepository;
@@ -20,30 +20,30 @@ public class AuthorService {
   private final AuthorRepository authorRepository;
   private final AuthorMapper mapper;
 
-  public AuthorResponseDto findById(String id) {
+  public AuthorResponse findById(String id) {
     log.info("Getting Author by ID: {}", id);
     return mapper.map(getById(id));
   }
 
-  public Page<AuthorResponseDto> findAll(Pageable pageable) {
+  public Page<AuthorResponse> findAll(Pageable pageable) {
     log.info("Getting all Authors");
     return mapper.map(authorRepository.findAll(pageable));
   }
 
   @Transactional
-  public AuthorResponseDto save(AuthorRequestDto requestDto) {
-    log.info("Saving  new Author: {}", requestDto);
-    final var author = mapper.map(requestDto);
+  public AuthorResponse save(AuthorRequest request) {
+    log.info("Saving  new Author: {}", request);
+    final var author = mapper.map(request);
 
     return mapper.map(authorRepository.save(author));
   }
 
   @Transactional
-  public AuthorResponseDto update(String id, AuthorRequestDto requestDto) {
+  public AuthorResponse update(String id, AuthorRequest request) {
     log.info("Updating Author with ID: {}", id);
     final var author = this.getById(id);
-    author.setFirstName(requestDto.getFirstName());
-    author.setLastName(requestDto.getLastName());
+    author.setFirstName(request.firstName());
+    author.setLastName(request.lastName());
 
     return mapper.map(author);
   }
