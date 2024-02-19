@@ -1,5 +1,5 @@
 package com.code4fun.book.dto.request;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 public record CategoryRequest(@NotBlank String name) {}

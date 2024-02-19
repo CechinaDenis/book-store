@@ -5,7 +5,7 @@ import com.code4fun.book.dto.response.AuthorResponse;
 import com.code4fun.book.mapper.AuthorMapper;
 import com.code4fun.book.model.Author;
 import com.code4fun.book.repository.AuthorRepository;
-import javax.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

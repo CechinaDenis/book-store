@@ -5,7 +5,7 @@ import com.code4fun.book.dto.response.CategoryResponse;
 import com.code4fun.book.mapper.CategoryMapper;
 import com.code4fun.book.model.Category;
 import com.code4fun.book.repository.CategoryRepository;
-import javax.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
