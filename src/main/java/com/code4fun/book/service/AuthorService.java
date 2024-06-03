@@ -6,21 +6,25 @@ import com.code4fun.book.mapper.AuthorMapper;
 import com.code4fun.book.model.Author;
 import com.code4fun.book.repository.AuthorRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
-@Service
 @Slf4j
+@Service
+@Validated
 @RequiredArgsConstructor
 public class AuthorService {
   private final AuthorRepository authorRepository;
   private final AuthorMapper mapper;
 
-  public AuthorResponse findById(String id) {
+  public AuthorResponse findById(@NotBlank String id) {
     log.info("Getting Author by ID: {}", id);
     return mapper.map(getById(id));
   }
@@ -31,7 +35,7 @@ public class AuthorService {
   }
 
   @Transactional
-  public AuthorResponse save(AuthorRequest request) {
+  public AuthorResponse save(@Valid AuthorRequest request) {
     log.info("Saving  new Author: {}", request);
     final var author = mapper.map(request);
 
@@ -39,7 +43,7 @@ public class AuthorService {
   }
 
   @Transactional
-  public AuthorResponse update(String id, AuthorRequest request) {
+  public AuthorResponse update(@NotBlank String id, @Valid AuthorRequest request) {
     log.info("Updating Author with ID: {}", id);
     final var author = this.getById(id);
     author.setFirstName(request.firstName());
@@ -49,9 +53,9 @@ public class AuthorService {
   }
 
   @Transactional
-  public void delete(String id) {
-    log.info("Deleting Author with ID: {}", id);
+  public void delete(@NotBlank String id) {
     final var author = getById(id);
+    log.info("Deleting Author with ID: {}", id);
     author.getBooks().forEach(b -> b.removeAuthor(author));
     authorRepository.delete(author);
   }

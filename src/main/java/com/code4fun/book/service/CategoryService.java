@@ -6,21 +6,25 @@ import com.code4fun.book.mapper.CategoryMapper;
 import com.code4fun.book.model.Category;
 import com.code4fun.book.repository.CategoryRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 @Slf4j
-@RequiredArgsConstructor
 @Service
+@Validated
+@RequiredArgsConstructor
 public class CategoryService {
   private final CategoryRepository categoryRepository;
   private final CategoryMapper mapper;
 
-  public CategoryResponse findById(String id) {
+  public CategoryResponse findById(@NotBlank String id) {
     log.info("Getting Category by ID: {}", id);
     final var category = this.getById(id);
 
@@ -34,7 +38,7 @@ public class CategoryService {
   }
 
   @Transactional
-  public CategoryResponse save(CategoryRequest request) {
+  public CategoryResponse save(@Valid CategoryRequest request) {
     log.info("Saving a new Category");
     final var category = mapper.map(request);
 
@@ -42,7 +46,7 @@ public class CategoryService {
   }
 
   @Transactional
-  public CategoryResponse update(String id, CategoryRequest request) {
+  public CategoryResponse update(@NotBlank String id, @Valid CategoryRequest request) {
     log.info("Updating Category with ID: {}", id);
     final var category = this.getById(id);
     category.setName(request.name());
@@ -51,7 +55,7 @@ public class CategoryService {
   }
 
   @Transactional
-  public void delete(String id) {
+  public void delete(@NotBlank String id) {
     log.info("Deleting Category by ID: {}", id);
     final var category = getById(id);
     categoryRepository.delete(category);

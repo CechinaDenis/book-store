@@ -68,7 +68,7 @@ public class BookControllerIT extends BaseIntegrationTest {
     mockMvc
         .perform(get("/api/books/{id}", "   "))
         .andExpect(status().isBadRequest())
-        .andExpect(jsonPath("$").value("findById.id: ID must not be blank."));
+        .andExpect(jsonPath("$").value("findById.id: must not be blank"));
   }
 
   @Test

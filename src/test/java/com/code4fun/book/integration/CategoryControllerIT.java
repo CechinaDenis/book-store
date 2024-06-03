@@ -53,7 +53,7 @@ public class CategoryControllerIT extends BaseIntegrationTest {
     mockMvc
         .perform(get("/api/categories/{id}", "   "))
         .andExpect(status().isBadRequest())
-        .andExpect(jsonPath("$").value("findById.id: ID must not be blank."));
+        .andExpect(jsonPath("$").value("findById.id: must not be blank"));
   }
 
   @Test

@@ -6,15 +6,19 @@ import com.code4fun.book.mapper.BookMapper;
 import com.code4fun.book.model.Book;
 import com.code4fun.book.repository.BookRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 @Slf4j
 @Service
+@Validated
 @RequiredArgsConstructor
 public class BookService {
 
@@ -23,7 +27,7 @@ public class BookService {
   private final CategoryService categoryService;
   private final BookMapper mapper;
 
-  public BookResponse findById(String id) {
+  public BookResponse findById(@NotBlank String id) {
     log.info("Getting Book by ID: {}", id);
     final var book = this.getById(id);
 
@@ -36,7 +40,7 @@ public class BookService {
     return mapper.map(bookRepository.findAll(pageable));
   }
 
-  public BookResponse save(BookRequest request) {
+  public BookResponse save(@Valid BookRequest request) {
     log.info("Saving a new Book: {}", request);
     final var book = mapper.map(request);
 
@@ -44,7 +48,7 @@ public class BookService {
   }
 
   @Transactional
-  public BookResponse update(String id, BookRequest request) {
+  public BookResponse update(@NotBlank String id, @Valid BookRequest request) {
     log.info("Updating Book with ID: {}", id);
     final var book = this.getById(id);
     book.setName(request.name());
@@ -57,7 +61,8 @@ public class BookService {
     return mapper.map(book);
   }
 
-  public void delete(String id) {
+  @Transactional
+  public void delete(@NotBlank String id) {
     log.info("Deleting Book with ID: {}", id);
     final var book = this.getById(id);
     book.getAuthors().forEach(a -> a.removeBook(book));
@@ -66,7 +71,7 @@ public class BookService {
   }
 
   @Transactional
-  public BookResponse addAuthor(String bookId, String authorId) {
+  public BookResponse addAuthor(@NotBlank String bookId, @NotBlank String authorId) {
     log.info("Adding Author with ID: {} to the Book with ID: {}", authorId, bookId);
     final var book = this.getById(bookId);
     final var author = authorService.getById(authorId);
@@ -76,7 +81,7 @@ public class BookService {
   }
 
   @Transactional
-  public void removeAuthor(String bookId, String authorId) {
+  public void removeAuthor(@NotBlank String bookId, @NotBlank String authorId) {
     log.info("Removing Author with ID: {} from the Book with ID: {}", authorId, bookId);
     final var book = this.getById(bookId);
     final var author = authorService.getById(authorId);
@@ -85,7 +90,7 @@ public class BookService {
   }
 
   @Transactional
-  public BookResponse addCategory(String bookId, String categoryId) {
+  public BookResponse addCategory(@NotBlank String bookId, @NotBlank String categoryId) {
     log.info("Adding Category with ID: {} to the Book with ID: {}", categoryId, bookId);
     final var book = this.getById(bookId);
     final var category = categoryService.getById(categoryId);
@@ -95,7 +100,7 @@ public class BookService {
   }
 
   @Transactional
-  public void removeCategory(String bookId, String categoryId) {
+  public void removeCategory(@NotBlank String bookId, @NotBlank String categoryId) {
     log.info("Removing Category with ID: {} from the Book with ID: {}", categoryId, bookId);
     final var book = this.getById(bookId);
     final var category = categoryService.getById(categoryId);

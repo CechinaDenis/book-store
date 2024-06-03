@@ -1,16 +1,12 @@
-package com.code4fun.book;
+package com.code4fun.book.security;
 
 import com.code4fun.book.model.User;
 import java.util.Collection;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-@RequiredArgsConstructor
-public class SecurityUser implements UserDetails {
-
-  private final User user;
+public record SecurityUser(User user) implements UserDetails {
 
   @Override
   public String getUsername() {
@@ -24,7 +20,7 @@ public class SecurityUser implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return List.of(() -> "read");
+    return List.of(() -> user.getUserRole().toString());
   }
 
   @Override
