@@ -36,18 +36,18 @@ public class SecurityConfig {
       HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
 
     // Default authentication
-    http.csrf(AbstractHttpConfigurer::disable)
-        .httpBasic(Customizer.withDefaults())
-        .authorizeHttpRequests(customizer -> customizer.anyRequest().authenticated());
+//    http.csrf(AbstractHttpConfigurer::disable)
+//        .httpBasic(Customizer.withDefaults())
+//        .authorizeHttpRequests(customizer -> customizer.anyRequest().authenticated());
 
     // Custom authentication
     //    http.addFilterBefore(customAuthenticationFilter,
     // UsernamePasswordAuthenticationFilter.class);
 
-    // DISABLE SPRING SECURITY
-    //    http.authorizeHttpRequests(
-    //            c -> c.requestMatchers("/**").permitAll().anyRequest().authenticated())
-    //        .csrf(AbstractHttpConfigurer::disable);
+//     DISABLE SPRING SECURITY
+        http.authorizeHttpRequests(
+                c -> c.requestMatchers("/**").permitAll().anyRequest().authenticated())
+            .csrf(AbstractHttpConfigurer::disable);
 
     return http.build();
   }
