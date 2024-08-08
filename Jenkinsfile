@@ -8,43 +8,47 @@ pipeline {
     }
 
     tools {
-         maven "maven_3.9.8"
+        maven "maven_3.9.8"
     }
 
-    stage('prebuild cleanup') {
-        cleanWs()
-    }
-    stage('build') {
-        steps {
-            sh "mvn clean verify"
-        }
-        post {
-            success {
-                junit '**/target/surefire-reports/TEST-*.xml'
-                archiveArtifacts 'target/*.jar'
+    stages {
+        stage('prebuild cleanup') {
+            steps {
+                cleanWs()
             }
         }
-    }
-    stage('build docker image') {
-        steps {
-            sh "dockerImage = docker.build $DOCKER_IMAGE:$BUILD_NUMBER"
+        stage('build') {
+            steps {
+                sh "mvn clean verify"
+            }
+            post {
+                success {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.jar'
+                }
+            }
         }
-    }
-    stage('deploy docker image') {
-        steps {
-            sh "docker.withRegistry('', registryCredential) { dockerImage.push() }"
+        stage('build docker image') {
+            steps {
+                sh "dockerImage = docker.build $DOCKER_IMAGE:$BUILD_NUMBER"
+            }
         }
-    }
-    stage('cleaning up') {
-        steps {
-            sh "docker rmi $registry:$BUILD_NUMBER"
+        stage('deploy docker image') {
+            steps {
+                sh "docker.withRegistry('', registryCredential) { dockerImage.push() }"
+            }
         }
-    }
+        stage('cleaning up') {
+            steps {
+                sh "docker rmi $registry:$BUILD_NUMBER"
+            }
+        }
 
-    post {
-        failure {
-//             TODO: sent email to the responsible
-            echo 'Pipeline failed!'
+        post {
+            failure {
+//                 TODO: sent email to the responsible
+                echo 'Pipeline failed!'
+            }
         }
     }
 }
