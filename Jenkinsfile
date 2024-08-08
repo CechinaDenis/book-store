@@ -16,7 +16,7 @@ pipeline {
     }
     stage('build') {
         steps {
-            sh "mvn clean package"
+            sh "mvn clean verify"
         }
         post {
             success {
@@ -27,18 +27,12 @@ pipeline {
     }
     stage('build docker image') {
         steps {
-            script {
-                dockerImage = docker.build DOCKER_IMAGE + ":$BUILD_NUMBER"
-            }
+            sh "dockerImage = docker.build $DOCKER_IMAGE:$BUILD_NUMBER"
         }
     }
     stage('deploy docker image') {
         steps {
-            script {
-                docker.withRegistry('', registryCredential) {
-                    dockerImage.push()
-                }
-            }
+            sh "docker.withRegistry('', registryCredential) { dockerImage.push() }"
         }
     }
     stage('cleaning up') {
@@ -54,3 +48,12 @@ pipeline {
         }
     }
 }
+
+//     stages {
+//         stage('checkout') {
+//             steps {
+//                 cleanWs()
+//                 sh "git --version"
+//                 git branch: 'main', url: 'https://github.com/CechinaDenis/book-store.git'
+//             }
+//         }

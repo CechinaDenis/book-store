@@ -1,7 +1,8 @@
 version: '3.8'
+
 services:
   db:
-    container_name: postgres_container
+    container_name: postgres
     image: postgres:14.4-alpine
 #    restart: always
     environment:
@@ -10,12 +11,18 @@ services:
       - POSTGRES_PASSWORD=postgres
     ports:
       - '5423:5432'
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge
+    name: backend
 
 #    volumes:
 #      - db:/var/lib/postgresql/data
 
 #  jenkins:
-#    container_name: jenkins_container
+#    container_name: jenkins
 #    image: jenkins/jenkins:lts-jdk11
 #    privileged: true
 #    user: root

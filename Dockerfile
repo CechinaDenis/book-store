@@ -1,5 +1,5 @@
 FROM eclipse-temurin:21-jdk
-COPY target/app.jar app.jar
+COPY target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
 EXPOSE 8090
 
