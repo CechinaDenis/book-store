@@ -1,22 +1,25 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_IMAGE = "al0card/book-store"
-        dockerImage = ''
-        registryCredential = 'dockerhub_id'
-    }
+     environment {
+         DOCKER_IMAGE = "al0card/book-app"
+         DOCKER_LATEST_TAG = "latest"
+         dockerImageVersion = ''
+         dockerImageLatest = ''
+         registryCredential = 'dockerhub_id'
+     }
 
     tools {
         maven "maven_3.9.8"
     }
 
     stages {
-        stage('prebuild cleanup') {
-            steps {
-                cleanWs()
-            }
-        }
+
+//         stage('prebuild cleanup') {
+//             steps {
+//                 cleanWs()
+//             }
+//         }
         stage('build') {
             steps {
                 sh "mvn clean verify"
@@ -30,34 +33,34 @@ pipeline {
         }
         stage('build docker image') {
             steps {
-                sh "dockerImage = docker.build $DOCKER_IMAGE:$BUILD_NUMBER"
+                script {
+                    dockerImageVersion = docker.build DOCKER_IMAGE + ":$BUILD_NUMBER"
+                    dockerImageLatest = docker.build DOCKER_IMAGE + ":$DOCKER_LATEST_TAG"
+                }
             }
         }
         stage('deploy docker image') {
             steps {
-                sh "docker.withRegistry('', registryCredential) { dockerImage.push() }"
+                script {
+                    docker.withRegistry('', registryCredential) {
+                        dockerImageVersion.push()
+                        dockerImageLatest.push()
+                    }
+                }
             }
         }
         stage('cleaning up') {
             steps {
-                sh "docker rmi $registry:$BUILD_NUMBER"
-            }
-        }
-
-        post {
-            failure {
-//                 TODO: sent email to the responsible
-                echo 'Pipeline failed!'
+                sh "docker rmi $DOCKER_IMAGE:$BUILD_NUMBER"
+                sh "docker rmi $DOCKER_IMAGE:$DOCKER_LATEST_TAG"
             }
         }
     }
-}
 
-//     stages {
-//         stage('checkout') {
-//             steps {
-//                 cleanWs()
-//                 sh "git --version"
-//                 git branch: 'main', url: 'https://github.com/CechinaDenis/book-store.git'
-//             }
-//         }
+    post {
+        failure {
+//         TODO: sent email to the responsible
+            echo 'Pipeline failed!'
+        }
+    }
+}
