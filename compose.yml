@@ -1,7 +1,7 @@
 services:
   db:
     container_name: postgres
-    image: postgres:14.4-alpine
+    image: postgres:16.4
     restart: unless-stopped
     environment:
       - POSTGRES_DB=book_store

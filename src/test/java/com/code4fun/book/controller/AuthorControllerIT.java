@@ -1,4 +1,4 @@
-package com.code4fun.book.integration;
+package com.code4fun.book.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

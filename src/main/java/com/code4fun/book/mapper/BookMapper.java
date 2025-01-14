@@ -3,11 +3,15 @@ package com.code4fun.book.mapper;
 import com.code4fun.book.dto.request.BookRequest;
 import com.code4fun.book.dto.response.BookResponse;
 import com.code4fun.book.model.Book;
+import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.data.domain.Page;
 
-@Mapper(componentModel = "spring", uses = EntityToEntityIdsMapper.class)
+@Mapper(
+    componentModel = "spring",
+    uses = EntityToEntityIdsMapper.class,
+    injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface BookMapper {
   @Mapping(target = "authors", ignore = true)
   @Mapping(target = "categories", ignore = true)

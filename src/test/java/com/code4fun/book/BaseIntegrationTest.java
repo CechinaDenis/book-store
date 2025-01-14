@@ -19,5 +19,5 @@ import org.springframework.test.web.servlet.MockMvc;
 public class BaseIntegrationTest {
   @Autowired protected MockMvc mockMvc;
 
-  protected static final String PATH_TO_RESPONSE = "com/code4fun/book/integration/response";
+  protected static final String PATH_TO_RESPONSE = "com/code4fun/book/controller/response";
 }
