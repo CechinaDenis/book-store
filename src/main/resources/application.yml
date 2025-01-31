@@ -1,0 +1,58 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: book-service
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5423/book_store
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+  threads:
+    virtual:
+      enabled: true
+  cloud:
+    vault:
+      enabled: true
+      host: 127.0.0.1
+      port: 8200
+      scheme: http
+      uri: http://127.0.0.1:8200
+      token:
+      connection-timeout: 5000
+      read-timeout: 15000
+      kv:
+        enabled: true
+  config:
+    import: vault://
+
+secret.key:
+#OBSERVABILITY
+management:
+  observations:
+    key-values:
+      application: ${spring.application.name}
+  tracing:
+    sampling:
+      probability: 1.0
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          client:
+            requests: true
+          server:
+            requests: true
+    tags:
+      application: ${spring.application.name}
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+
+---
+spring.config.activate.on-profile: dockerd
+spring.datasource.url: jdbc:postgresql://postgres:5432/book_store

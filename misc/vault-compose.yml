@@ -1,0 +1,19 @@
+services:
+  vault:
+    container_name: hashicorp_vault_container
+    image: hashicorp/vault:1.18
+    ports:
+      - '8200:8200'
+    volumes:
+      - ./docker-volumes/vault/logs:/vault/logs
+      - ./docker-volumes/vault/file:/vault/files
+      - ./docker-volumes/vault/config:/vault/config
+    cap_add:
+      - IPC_LOCK
+    entrypoint: vault server -config=/vault/config/vault.json
+    environment:
+      VAULT_ADDR: http://127.0.0.1:8200
+      VAULT_API_ADDR: http://127.0.0.1:8200
+      VAULT_SERVER: http://0.0.0.0:8200
+volumes:
+  vault:

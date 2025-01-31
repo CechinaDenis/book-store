@@ -10,7 +10,7 @@ import org.springframework.security.core.AuthenticationException;
 // @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-  @Value("${book.store.secret.key}")
+  @Value("${secret.key}")
   private String key;
 
   @Override

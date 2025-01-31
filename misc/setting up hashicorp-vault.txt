@@ -1,0 +1,94 @@
+Hey, so to be able to set up hashicorp vault you have two options to install directly to the server what is preferable
+if you want to use for PROD but if you just want to play with vault you can do it with docker here I will describe wat
+you need to do for docker path.
+First of all we will need a docker compose file lets say the name will be <vault-compose.yml> and in ti wi will have:
+"""
+services:
+  vault:
+    container_name: hashicorp_vault_container
+    image: hashicorp/vault:1.18
+    ports:
+      - '8200:8200'
+    volumes:
+      - ./docker-volumes/vault/logs:/vault/logs
+      - ./docker-volumes/vault/file:/vault/files
+      - ./docker-volumes/vault/config:/vault/config
+    cap_add:
+      - IPC_LOCK
+    entrypoint: vault server -config=/vault/config/vault.json
+    environment:
+      VAULT_ADDR: http://127.0.0.1:8200
+      VAULT_API_ADDR: http://127.0.0.1:8200
+      VAULT_SERVER: http://0.0.0.0:8200
+volumes:
+  vault:
+"""
+now in the same directory, we will create a folder <docker-volumes> and in it will make one more folder <vault> and one
+more <config> and in this folder, we will create a file <vault.json> and in it, we will have:
+"""
+{
+  "storage" : {
+    "file" : {
+      "path" : "/vault/file"
+    }
+  },
+  "listener" : {
+    "tcp" : {
+      "address" : "0.0.0.0:8200",
+      "tls_disable" : 1
+    }
+  },
+  "ui" : true,
+  "api_addr" : "http://127.0.0.1:8200"
+}
+"""
+Now I need to store in this vault some secrets and to be able to get those secrets when my service(app) starts. For
+this Spring Boot have starters for in-memory storage of the secrets we will add to the <pom.xml> next starters
+"""
+        <dependency>
+            <groupId>org.springframework.vault</groupId>
+            <artifactId>spring-vault-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-vault-config</artifactId>
+        </dependency>
+"""
+and in the <application.yml> you need to add these configs:
+"""
+spring:
+  application:
+    name: <service-name>
+  cloud:
+    vault:
+      enabled: true
+      host: 127.0.0.1
+      port: 8200
+      scheme: http
+      uri: http://127.0.0.1:8200
+      token: <vault-root-token>
+      connection-timeout: 5000
+      read-timeout: 15000
+      kv:
+        enabled: true
+  config:
+    import: vault://
+"""
+So to be able to use this vault you will need to initialize it and create the <root-token> and <unseal-token> the
+easiest way to do it is to use the UI by going to <http://localhost:8200> and to start the process of initialization to
+get the root-token and unsealing but of course, you can use the CLI by doing <docker exec -it container-name sh > and
+<vault operator init>.
+Now if we set everything up we can add secrets also can be done in UI or CLI, the easy way is UI, you will need to go
+to "Secrets Engines -> Enable a Secrets Engine -> KV -> Path=secret -> Create Secret ->
+Path for this secret=<service-name> -> Secret data=secret.key | secret-value" with this configuration you will have
+these secrets imported in your service(app) at runtime.
+So do remember this configuration will start vault server like for prod if you need it just for playing around you can
+start the service in dev mode.
+
+Problems encountered:
+403 when trying to add or read a secret from vault. 
+Solution:
+$ vault secrets enable -path=secret/ kv
+Success! Enabled the kv secrets engine at: secret/
+$ vault kv put secret/foo bar=baz
+Success! Data written to: secret/foo
