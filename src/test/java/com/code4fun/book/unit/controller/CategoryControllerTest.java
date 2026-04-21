@@ -43,9 +43,9 @@
 // CategoryResponse.builder().id(3L).name("Comedy").build(),
 // CategoryResponse.builder().id(4L).name("LitRPG").build()
 // );
-//// when(categoryService.findAll()).thenReturn(_responseDtos);
+// when(categoryService.findAll()).thenReturn(_responseDtos);
 //
-//// assertEquals(_responseDtos, categoryController.findAll());
+// assertEquals(_responseDtos, categoryController.findAll());
 // }
 //
 // @Test
@@ -74,7 +74,7 @@
 // void delete() {
 // doNothing().when(categoryService).delete(isA(Long.class));
 //
-//// assertEquals(new ResponseEntity<>(HttpStatus.OK),
+// assertEquals(new ResponseEntity<>(HttpStatus.OK),
 // categoryController.delete(1L));
 // }
 // }

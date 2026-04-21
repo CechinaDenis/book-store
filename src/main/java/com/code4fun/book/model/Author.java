@@ -17,13 +17,13 @@ import lombok.Setter;
 @Table(name = "author")
 public class Author extends com.code4fun.book.model.Entity {
 
-  private String firstName;
-  private String lastName;
-
   @ManyToMany(
       mappedBy = "authors",
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   private final Set<Book> books = new HashSet<>();
+
+  private String firstName;
+  private String lastName;
 
   public Author(String firstName, String lastName) {
     this.firstName = firstName;

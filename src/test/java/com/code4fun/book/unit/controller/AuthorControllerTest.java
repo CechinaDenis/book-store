@@ -42,9 +42,9 @@
 // AuthorResponse.builder().id(2L).firstName("Steven").lastName("Born").build(),
 // AuthorResponse.builder().id(3L).firstName("Fillip").lastName("Rain").build()
 // );
-//// when(authorService.findAll()).thenReturn(_authorResponseDtos);
+// when(authorService.findAll()).thenReturn(_authorResponseDtos);
 //
-//// assertEquals(_authorResponseDtos, authorController.findAll());
+// assertEquals(_authorResponseDtos, authorController.findAll());
 // }
 //
 // @Test

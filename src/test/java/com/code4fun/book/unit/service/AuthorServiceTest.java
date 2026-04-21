@@ -93,13 +93,13 @@
 // assertEquals(_responseDto, service.findById(_id));
 // }
 //
-//// @Test
-//// void findAllTest() {
-//// final var _authorResponseDtos = authorMapper.map(authors);
-//// when(repository.findAll()).thenReturn(authors);
-////
-//// assertEquals(_authorResponseDtos, service.findAll());
-//// }
+// @Test
+// void findAllTest() {
+// final var _authorResponseDtos = authorMapper.map(authors);
+// when(repository.findAll()).thenReturn(authors);
+//
+// assertEquals(_authorResponseDtos, service.findAll());
+// }
 //
 // @Test
 // void saveTest() {

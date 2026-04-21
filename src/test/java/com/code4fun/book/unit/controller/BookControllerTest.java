@@ -89,10 +89,10 @@
 // .quality(56)
 // .build()
 // );
-//// new PageImpl<BookResponse>(responseDtos, )
-//// when(bookService.findAll()).thenReturn(responseDtos);
+// new PageImpl<BookResponse>(responseDtos, )
+// when(bookService.findAll()).thenReturn(responseDtos);
 //
-//// assertEquals(responseDtos, bookController.findAll());
+// assertEquals(responseDtos, bookController.findAll());
 // }
 //
 // @Test
@@ -188,7 +188,7 @@
 // void delete() {
 // doNothing().when(bookService).delete(isA(Long.class));
 //
-//// assertEquals(new ResponseEntity<>(HttpStatus.OK),
+// assertEquals(new ResponseEntity<>(HttpStatus.OK),
 // bookController.delete(1L));
 // }
 //
@@ -196,7 +196,7 @@
 // void removeAuthorFromBook() {
 // doNothing().when(bookService).removeAuthor(isA(Long.class), isA(Long.class));
 //
-//// assertEquals(new ResponseEntity<>(HttpStatus.OK),
+// assertEquals(new ResponseEntity<>(HttpStatus.OK),
 // bookController.removeAuthorFromBook(1L, 2L));
 // }
 //
@@ -205,7 +205,7 @@
 // doNothing().when(bookService).removeCategory(isA(Long.class),
 // isA(Long.class));
 //
-//// assertEquals(new ResponseEntity<>(HttpStatus.OK),
+// assertEquals(new ResponseEntity<>(HttpStatus.OK),
 // bookController.removeCategoryFromBook(1L, 2L));
 // }
 // }

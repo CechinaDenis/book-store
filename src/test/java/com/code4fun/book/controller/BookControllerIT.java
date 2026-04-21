@@ -33,6 +33,10 @@ public class BookControllerIT extends BaseIntegrationTest {
   @Autowired AuthorRepository authorRepository;
   @Autowired CategoryRepository categoryRepository;
 
+  private static Stream<Arguments> provideStringsForIsBlank() {
+    return Stream.of(Arguments.of("argument-1", "  "), Arguments.of("  ", "argument-2"));
+  }
+
   @Test
   @WithMockUser
   @DatabaseSetup("bookController.xml")
@@ -138,15 +142,15 @@ public class BookControllerIT extends BaseIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(
                     """
-                {
-                  "name": "book-edited",
-                  "reading": "reader-edited",
-                  "series": "series-edited",
-                  "year": 2022,
-                  "duration": 222,
-                  "quality": 193
-                }
-                """))
+                        {
+                          "name": "book-edited",
+                          "reading": "reader-edited",
+                          "series": "series-edited",
+                          "year": 2022,
+                          "duration": 222,
+                          "quality": 193
+                        }
+                        """))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").value("book-2"))
         .andExpect(jsonPath("$.name").value("book-edited"))
@@ -177,7 +181,7 @@ public class BookControllerIT extends BaseIntegrationTest {
     mockMvc.perform(delete("/api/books/{id}", "book-1")).andExpect(status().isOk());
 
     var book = bookRepository.findById("book-1");
-    assertThatThrownBy(() -> book.get()).isInstanceOf(NoSuchElementException.class);
+    assertThatThrownBy(book::get).isInstanceOf(NoSuchElementException.class);
 
     var author = authorRepository.findById("author-1").get();
     assertThat(author.getBooks()).isEmpty();
@@ -215,17 +219,17 @@ public class BookControllerIT extends BaseIntegrationTest {
     assertThat(book.getDuration()).isEqualTo(490);
     assertThat(book.getQuality()).isEqualTo(128);
     assertThat(book.getAuthors().size()).isEqualTo(1);
-    assertThat(book.getAuthors().stream().toList().get(0).getId()).isEqualTo("author-2");
-    assertThat(book.getAuthors().stream().toList().get(0).getFirstName())
+    assertThat(book.getAuthors().stream().toList().getFirst().getId()).isEqualTo("author-2");
+    assertThat(book.getAuthors().stream().toList().getFirst().getFirstName())
         .isEqualTo("first-name-author-2");
-    assertThat(book.getAuthors().stream().toList().get(0).getLastName())
+    assertThat(book.getAuthors().stream().toList().getFirst().getLastName())
         .isEqualTo("last-name-author-2");
     assertThat(book.getCategories().size()).isEqualTo(0);
 
     final var authorsBooks =
         authorRepository.findById("author-2").get().getBooks().stream().toList();
     assertThat(authorsBooks.size()).isEqualTo(1);
-    assertThat(authorsBooks.get(0).getId()).isEqualTo("book-2");
+    assertThat(authorsBooks.getFirst().getId()).isEqualTo("book-2");
   }
 
   @ParameterizedTest
@@ -270,8 +274,8 @@ public class BookControllerIT extends BaseIntegrationTest {
 
     final var categories = book.getCategories().stream().toList();
     assertThat(categories.size()).isEqualTo(1);
-    assertThat(categories.get(0).getId()).isEqualTo("category-1");
-    assertThat(categories.get(0).getName()).isEqualTo("category-1");
+    assertThat(categories.getFirst().getId()).isEqualTo("category-1");
+    assertThat(categories.getFirst().getName()).isEqualTo("category-1");
   }
 
   @ParameterizedTest
@@ -353,9 +357,5 @@ public class BookControllerIT extends BaseIntegrationTest {
     mockMvc
         .perform(post("/api/books/{bookId}/categories/{categoryId}", bookId, categoryId))
         .andExpect(status().isBadRequest());
-  }
-
-  private static Stream<Arguments> provideStringsForIsBlank() {
-    return Stream.of(Arguments.of("argument-1", "  "), Arguments.of("  ", "argument-2"));
   }
 }

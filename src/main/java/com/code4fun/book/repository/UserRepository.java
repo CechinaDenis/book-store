@@ -7,8 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UserRepository extends JpaRepository<User, String> {
 
-  @Query("""
-      SELECT u FROM User u WHERE u.username = :username
-      """)
+  @Query(
+      """
+          SELECT u FROM User u WHERE u.username = :username
+          """)
   Optional<User> findUserByUsername(String username);
 }
